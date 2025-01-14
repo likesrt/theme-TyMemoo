@@ -4,7 +4,6 @@ metadata:
   name: theme-TyMemoo
 spec:
   displayName: Theme TyMemoo
-  version: "1.0.0"
   author:
     name: likesrt
     website: "https://github.com/likesrt"
