@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <th:block th:each="archive : ${archives.items}">
-      <h1 th:text="${archive.year}"></h1>
-      <ul class="listing">
-        <th:block th:each="month : ${archive.months}">
-          <li th:each="post : ${month.posts}">
-            <a
-              th:href="@{${post.status.permalink}}"
-              th:title="${post.spec.title}"
-              th:text="${post.spec.title}"
-            ></a>
-          </li>
-        </th:block>
-      </ul>
-    </th:block>
-    <a th:if="${archives.hasPrevious()}" th:href="@{${archives.prevUrl}}">
-      上一页
-    </a>
-    <a th:if="${archives.hasNext()}" th:href="@{${archives.nextUrl}}">下一页</a>
-  </th:block>
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${site.title}"></title>
+  <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
+  <link rel="stylesheet" th:href="@{/assets/css/normalize.css?v={version}(version=${theme.spec.version})}">
+</head>
+
+<body>
+  <main>
+    <!-- 导入header模块 -->
+    <header th:replace="~{modules/header.html}"></header>
+
+
+
+    <!-- 导入sidebar模块 -->
+    <aside th:replace="~{modules/sidebar.html}"></aside>
+  </main>
+
+
+  <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}"></script>
+</body>
+
 </html>

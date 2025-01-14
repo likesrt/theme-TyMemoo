@@ -15,8 +15,7 @@
   <main>
     <!-- 导入header模块 -->
     <header th:replace="~{modules/header.html}"></header>
-    <!-- 使用新的片段表达式语法 -->
-    <aside th:replace="~{modules/sidebar.html}"></aside>
+
 
     <div class="main-content">
         <!-- 如果需要使用 navbar，取消注释并更新语法 -->
@@ -31,13 +30,6 @@
           <ul class="blog-posts-list" th:with="posts = ${postFinder.list(page,10)}">
             <li class="blog-post-item" th:each="post : ${posts.items}">
               <a th:href="${post.status.permalink}">
-                <figure class="blog-banner-box" th:if="${post.spec.cover}">
-                  <img th:src="${post.spec.cover}" th:srcset="|${thumbnail.gen(post.spec.cover, 's')} 400w,
-                              ${thumbnail.gen(post.spec.cover, 'm')} 800w,
-                              ${thumbnail.gen(post.spec.cover, 'l')} 1200w|" sizes="(max-width: 1200px) 100vw, 1200px"
-                    loading="lazy" th:alt="${post.spec.title}" class="blog-banner">
-                </figure>
-
                 <div class="blog-content">
                   <div class="blog-meta">
                     <p class="blog-category" th:text="${post.categories[0].spec.displayName}"></p>
@@ -53,8 +45,10 @@
         </section>
       </article>
     </div>
-
+    <!-- 导入sidebar模块 -->
+    <aside th:replace="~{modules/sidebar.html}"></aside>
   </main>
+
 
   <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}"></script>
 </body>

@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <h1 th:text="${singlePage.spec.title}"></h1>
-    <article th:utext="${singlePage.content.content}"></article>
-  </th:block>
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${site.title}"></title>
+  <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
+  <link rel="stylesheet" th:href="@{/assets/css/normalize.css?v={version}(version=${theme.spec.version})}">
+</head>
+
+<body>
+  <main>
+    <!-- 导入header模块 -->
+    <header th:replace="~{modules/header.html}"></header>
+
+
+
+    <!-- 导入sidebar模块 -->
+    <aside th:replace="~{modules/sidebar.html}"></aside>
+  </main>
+
+
+  <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}"></script>
+</body>
+
 </html>
