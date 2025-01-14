@@ -1,18 +1,19 @@
 <div class="col-sm-12 col-md-4" id="secondary" role="complementary">
-<!-- 显示最新文章 -->
-<th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRecentPosts')}">
-    <section class="widget">
-        <h3 class="widget-title">最新文章</h3>
-        <ul class="widget-list">
-            <th:block th:with="posts=${postFinder.list(1, 5)}">
-                <li th:each="post : ${#lists.sort(posts.items, T(org.springframework.util.comparator.Comparators).comparing(p -> p.spec.publishTime).reversed())}">
-                    <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
-                </li>
-                <li th:if="${posts == null}">获取最新文章时出错。</li>
-            </th:block>
-        </ul>
-    </section>
-</th:block>
+    <!-- 显示最新文章 -->
+    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRecentPosts')}">
+        <section class="widget">
+            <h3 class="widget-title">最新文章</h3>
+            <ul class="widget-list">
+                <th:block th:with="posts=${postFinder.list(1, 5)}">
+                    <li th:each="post : ${posts.items}" th:if="${posts != null}">
+                        <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
+                    </li>
+                    <li th:if="${posts == null}">获取最新文章时出错。</li>
+                </th:block>
+            </ul>
+        </section>
+    </th:block>
+
     <!-- 显示最近回复 -->
     <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRecentComments')}">
         <section class="widget">
