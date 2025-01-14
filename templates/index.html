@@ -1,56 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title th:text="${site.title}"></title>
-  <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
-  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
-  <link rel="stylesheet" th:href="@{/assets/css/normalize.css?v={version}(version=${theme.spec.version})}">
-</head>
-
-<body>
-  <main>
-    <!-- 导入header模块 -->
-    <header th:replace="~{modules/header.html}"></header>
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{modules/layout :: layout(_title = null,_content = ~{::content},_head = null)}">
 
 
-    <div class="main-content">
-        <!-- 如果需要使用 navbar，取消注释并更新语法 -->
-        <!-- <nav th:replace="~{modules/navbar.html}"></nav> -->
+<th:block th:fragment="content">
 
-        <article class="blog active" data-page="最新文章">
-            <header>
-                <h2 class="h2 article-title">最新文章</h2>
-            </header>
+  <!-- 文章列表 -->
+  <div class="col-sm-12 col-md-8" id="main" role="main">
+    <!-- 使用 posts 变量，避免重复查询 -->
+    <article class="post" th:each="post : ${posts.items}" th:object="${post}">
+      <h2 class="post-title" itemprop="name headline">
+        <!-- 置顶标识 -->
+        <span th:if="*{spec.pinned}" style="color: red;">[置顶]</span>
+        <!-- 文章标题 -->
+        <a th:href="*{status.permalink}" th:text="*{spec.title}"></a>
+      </h2>
+      <ul class="post-meta">
+        <!-- 发布时间 -->
+        <li>
+          <span>时间: </span>
+          <time th:datetime="*{#dates.format(spec.publishTime, 'yyyy-MM-dd')}"
+            th:text="*{#dates.format(spec.publishTime, 'yyyy-MM-dd')}"></time>
+        </li>
+        <!-- 分类 -->
+        <li>
+          <span>分类: </span>
+          <span th:each="category, iterStat : ${post.categories}">
+            <a th:href="${category.status.permalink}" th:text="${category.spec.displayName}"></a>
+            <span th:if="${!iterStat.last}">, </span>
+          </span>
+        </li>
+      </ul>
+      <!-- 判断是否显示文章摘要 -->
+      <th:block th:if="${theme.config.general.excerpt_show}">
+        <div class="post-content" itemprop="articleBody">
+          <p th:text="*{status.excerpt}"></p>
+        </div>
+      </th:block>
+    </article>
 
-        <section class="blog-posts">
-          <ul class="blog-posts-list" th:with="posts = ${postFinder.list(page,10)}">
-            <li class="blog-post-item" th:each="post : ${posts.items}">
-              <a th:href="${post.status.permalink}">
-                <div class="blog-content">
-                  <div class="blog-meta">
-                    <p class="blog-category" th:text="${post.categories[0].spec.displayName}"></p>
-                    <span class="dot"></span>
-                    <time datetime="2022-02-23" th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"></time>
-                  </div>
-                  <h3 class="h3 blog-item-title" th:text="${post.spec.title}"></h3>
-                  <p class="blog-text" th:text="${post.status.excerpt}"></p>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </section>
-      </article>
+    <!-- 文章分页 -->
+    <div class="pagination" th:if="${posts.hasPrevious() || posts.hasNext()}">
+      <a th:href="@{${posts.prevUrl}}" th:classappend="${!posts.hasPrevious()} ? 'disabled' : ''">
+        <span>前一页</span>
+      </a>
+      <span th:text="${posts.page} +' / '+ ${posts.totalPages}"></span>
+      <a th:href="@{${posts.nextUrl}}" th:classappend="${!posts.hasNext()} ? 'disabled' : ''">
+        <span>后一页</span>
+      </a>
     </div>
-    <!-- 导入sidebar模块 -->
-    <aside th:replace="~{modules/sidebar.html}"></aside>
-  </main>
+  </div>
 
-
-  <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}"></script>
-</body>
+</th:block>
 
 </html>

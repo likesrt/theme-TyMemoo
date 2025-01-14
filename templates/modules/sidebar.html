@@ -1,48 +1,71 @@
 <div class="col-sm-12 col-md-4" id="secondary" role="complementary">
-<!-- 显示最新文章 -->
-<th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRecentPosts')}">
-    <section class="widget">
-        <h3 class="widget-title">最新文章</h3>
-        <div th:with='archives = ${postFinder.archives(1,5)}'>
-            <div>
-                <th:block th:each="archive : ${archives.items}">
-                    <th:block th:each="month : ${archive.months}">
-                        <div th:each="post : ${month.posts}">
-                            <p><a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a></p>
-                        </div>
+
+    <!-- 显示搜索框 -->
+    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowSearch')}">
+        <section class="widget">
+            <a href="javascript:SearchWidget.open()" title="搜索文章">
+                <h3 class="widget-title">搜索文章</h3>
+            </a>
+        </section>
+    </th:block>
+
+    <!-- 显示联系方式 -->
+    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowContact')}">
+        <section class="widget">
+            <h3 class="widget-title">联系方式</h3>
+            <ul class="widget-list">
+                <li th:each="contact : ${theme.config.sidebar.socialMedia}">
+                    <a th:href="${contact.url}" th:text="${contact.title}" target="_blank"
+                        rel="noopener noreferrer"></a>
+                </li>
+            </ul>
+        </section>
+    </th:block>
+    <!-- 显示最新文章 -->
+    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRecentPosts')}">
+        <section class="widget">
+            <h3 class="widget-title">最新文章</h3>
+            <div th:with='archives = ${postFinder.archives(1,5)}'>
+                <div>
+                    <th:block th:each="archive : ${archives.items}">
+                        <th:block th:each="month : ${archive.months}">
+                            <div th:each="post : ${month.posts}">
+                                <p><a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a></p>
+                            </div>
+                        </th:block>
                     </th:block>
-                </th:block>
+                </div>
             </div>
-        </div>
-    </section>
-</th:block>
-<!-- 显示最近回复 -->
-<th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRecentComments')}">
-    <section class="widget">
-        <h3 class="widget-title">最近回复</h3>
-        <ul class="widget-list">
-            <th:block th:with="comments=${commentFinder.list(null, 1, 5)}">
-                <li th:each="comment : ${comments.items}" th:if="${comments != null}">
-                    <th:block th:with="page = ${comment.spec.subjectRef.kind == 'Post' ? postFinder.getByName(comment.spec.subjectRef.name) :
+        </section>
+    </th:block>
+    <!-- 显示最近回复 -->
+    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRecentComments')}">
+        <section class="widget">
+            <h3 class="widget-title">最近回复</h3>
+            <ul class="widget-list">
+                <th:block th:with="comments=${commentFinder.list(null, 1, 5)}">
+                    <li th:each="comment : ${comments.items}" th:if="${comments != null}">
+                        <th:block th:with="page = ${comment.spec.subjectRef.kind == 'Post' ? postFinder.getByName(comment.spec.subjectRef.name) :
                     comment.spec.subjectRef.kind == 'SinglePage' && not #strings.contains('photos,links,moments', comment.spec.subjectRef.name) ? singlePageFinder.getByName(comment.spec.subjectRef.name) : null},
                     url = ${page == null? '/' : page.status.permalink + '#comment-' + comment.metadata.name}">
-                        <a th:href="${url}">
-                            <div class="info">
-                                <span class="name" th:text="${comment.owner.displayName} + ':'"></span>
-                                <span class="text" th:title="${comment.spec.content}" th:text="${#strings.abbreviate(comment.spec.content, 20)}"></span>
-                            </div>
-                        </a>
-                    </th:block>
-                </li>
-            </th:block>
-        </ul>
-    </section>
-</th:block>
+                            <a th:href="${url}">
+                                <div class="info">
+                                    <span class="name" th:text="${comment.owner.displayName} + ':'"></span>
+                                    <span class="text" th:title="${comment.spec.content}"
+                                        th:text="${#strings.abbreviate(comment.spec.content, 20)}"></span>
+                                </div>
+                            </a>
+                        </th:block>
+                    </li>
+                </th:block>
+            </ul>
+        </section>
+    </th:block>
 
     <!-- 显示分类 -->
     <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowCategory')}">
         <section class="widget">
-            <h3 class="widget-title">分类</h3>
+            <h3 class="widget-title">文章分类</h3>
             <ul class="widget-list">
                 <th:block th:with="categories=${categoryFinder.listAll()}">
                     <li th:each="category : ${categories}" th:if="${categories != null}">
@@ -53,36 +76,37 @@
         </section>
     </th:block>
 
-    <!-- 显示归档 -->
-    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowArchive')}">
-        <section class="widget">
-            <h3 class="widget-title">归档</h3>
-            <ul class="widget-list">
-                <th:block th:with="archives=${postFinder.archives(1, 12)}">
-                    <li th:each="archive : ${archives.items}" th:if="${archives != null}">
-                        <a th:href="@{/archives/${archive.year}}">
-                            <span th:text="${archive.year}"></span>
-                        </a>
-                    </li>
-                </th:block>
-            </ul>
-        </section>
-    </th:block>
+<!-- 显示归档 -->
+<th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowArchive')}">
+    <section class="widget">
+        <h3 class="widget-title">文章归档</h3>
+        <ul class="widget-list">
+            <th:block th:with="archives=${postFinder.archives(1, 5)}"> <!-- 获取最近五年的归档 -->
+                <li th:each="archive : ${archives.items}" th:if="${archives != null}">
+                    <a th:href="@{/archives}">
+                        <span th:text="${archive.year}"></span>
+                    </a>
+                </li>
+            </th:block>
+        </ul>
+    </section>
+</th:block>
 
     <!-- 显示登录入口和RSS订阅 -->
-    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowLogin') || #lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRSS')}">
+    <th:block
+        th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowLogin') || #lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRSS')}">
         <section class="widget">
             <h3 class="widget-title">其它</h3>
             <ul class="widget-list">
                 <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowLogin')}">
                     <div sec:authorize="isAuthenticated()">
                         <th:block>
-                            <a href="/console" class="setting">管理</a>
-                            <a href="/logout" class="logout">退出</a>
+                            <li><a href="/console" class="setting">管理</a></li>
+                            <li><a href="/logout" class="logout">退出</a></li>
                         </th:block>
                     </div>
                     <div sec:authorize="isAnonymous()">
-                        <a href="/console/login" class="login">登录</a>
+                        <li><a href="/console/login" class="login">登录</a></li>
                     </div>
                 </th:block>
                 <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRSS')}">

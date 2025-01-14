@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{modules/layout :: layout(_title = ${singlePage.spec.title},_content = ~{::content},_head = null)}">
+
+
+<th:block th:fragment="content">
+
+  <!-- 友链 -->
+  <div class="col-sm-12 col-md-8">
+    <th:block th:each="group : ${linkFinder.groupBy()}">
+      <h2 class="group-title" th:text="${group.spec.displayName}"></h2>
+      <p th:if="${not #strings.isEmpty(#annotations.get(group, 'description'))}">[[${#annotations.get(group,
+        'description')}]]</p>
+      <div class="card-container">
+        <a th:each="link : ${group.links}" :key="i" th:href="${link.spec.url}" target="_blank" class="card">
+          <img th:src="${link.spec.logo}" th:alt="${link.spec.displayName}" />
+          <div class="card-content">
+            <p th:text="${link.spec.displayName}"></p>
+            <p th:text="${link.spec.description}"></p>
+          </div>
+        </a>
+      </div>
+    </th:block>
+    <!-- 页面内容 -->
+    <div class="content main-reveal" th:utext="${singlePage.content.content}"></div>
+      <!-- 评论区 -->
+      <!-- 判断是否显示评论区 -->
+      <th:block th:if="${theme.config.comments.comments_page}">
+        <div class="moment-comments" th:id="${'singlePage-' + singlePage.metadata.name}"
+          th:style="${theme.config.comments.comments_page} ? 'display: block;' : 'display: none;'">
+          <div class="separator"></div>
+          <halo:comment group="content.halo.run" kind="SinglePage" th:attr="name=${singlePage.metadata.name}" />
+        </div>
+      </th:block>
+  </div>
+
+
+</th:block>
+
+</html>

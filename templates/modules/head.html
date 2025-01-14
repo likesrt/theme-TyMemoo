@@ -1,0 +1,25 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport"
+        content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+    <title th:text="${site_title}"></title>
+
+    <!-- 使用 Halo 的静态资源引用方式 -->
+    <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}" />
+    <link rel="stylesheet" th:href="@{/assets/css/normalize.css?v={version}(version=${theme.spec.version})}" />
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap-grid.css?v={version}(version=${theme.spec.version})}" />
+
+
+
+
+
+    <th:block th:if="${not #strings.isEmpty(theme.config.custom.custom_html_head)}"
+        th:utext="${theme.config.custom.custom_html_head}"> </th:block>
+    <style type="text/css" th:if="${not #strings.isEmpty(theme.config.custom.custom_css)}"
+        th:utext="${theme.config.custom.custom_css}"></style>
+
+</head>.

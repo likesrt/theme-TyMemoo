@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{modules/layout :: layout(_title = ${singlePage.spec.title},_content = ~{::content},_head = null)}">
+
+
+<th:block th:fragment="content">
+
+<div class="col-sm-12 col-md-8">
+  <H1>Photos</H1>
+  <div class="row">
+    <p>This is the photos page.</p>
+  </div>
+</div>
+
+</th:block>
+
+</html>

@@ -20,10 +20,17 @@ spec:
           label: 站点favicon.ico图标
           help: 请输入favicon.ico图标文件位置，这将让图标展示在浏览器页签上，示例（默认值）：/usr/themes/memoo/favicon.ico
           value: "https://file.likesrt.com/uploads/2024/12/23/%E5%9C%86%E8%A7%92-avatar.png!wp5"
-        - $formkit: text
-          name: 
-          label: 顶部菜单
-          help: 顶部菜单
+        - $formkit: checkbox
+          name: excerpt_show
+          label: 摘要显示
+          help: 开启后首页将显示文章摘要
+        - $formkit: menuRadio
+          name: menus
+          label: 菜单
+          value: ""
+          help: 菜单设置
+
+
     - group: page
       label: 页面设置
       formSchema:
@@ -44,6 +51,10 @@ spec:
           name: sidebarBlock
           label: 侧边栏显示
           options:
+            - label: 显示搜索框
+              value: ShowSearch
+            - label: 显示联系方式
+              value: ShowContact
             - label: 显示最新文章
               value: ShowRecentPosts
             - label: 显示最近回复
@@ -57,34 +68,49 @@ spec:
             - label: 显示RSS订阅
               value: ShowRSS
           value:
+            - ShowSearch
+            - ShowContact
             - ShowRecentPosts
             - ShowRecentComments
             - ShowCategory
             - ShowArchive
             - ShowLogin
             - ShowRSS
+        - $formkit: repeater
+          name: socialMedia
+          help: 社交媒体设置
+          label: 社交媒体
+          value:
+            - title: "GitHub"
+              url: https://github.com/chengzhongxue
+          children:
+            - $formkit: text
+              name: title
+              label: title属性
+              validation: required
+            - $formkit: url
+              name: url
+              label: 链接
+              validation: required
+
     - group: comments
       label: 评论设置
       formSchema:
         - $formkit: checkbox
           name: comments_page
           label: 页面评论区
-          value: false
           help: 开启后页面可使用评论功能
         - $formkit: checkbox
           name: comments_post
           label: 文章评论区
-          value: false
           help: 开启后文章详情页可使用评论功能
         - $formkit: checkbox
           name: comments_links
           label: 友链评论区
-          value: false
           help: 开启后友链页面可使用评论功能
         - $formkit: checkbox
           name: comments_moment
           label: 瞬间评论区
-          value: false
           help: 开启后瞬间页面可使用评论功能
     - group: footer
       label: 页脚设置
@@ -97,9 +123,35 @@ spec:
           name: icp_gov
           label: 公网安备号
           help: 页脚显示公网安备号
-          validation: required
         - $formkit: checkbox
           name: upyun
           label: 又拍云联盟
           value: false
           help: 开启后页脚显示又拍云联盟链接
+    - group: custom
+      label: 扩展设置
+      formSchema:
+        - $formkit: code
+          name: custom_css
+          label: 自定义CSS代码
+          height: 200px
+          language: css
+          help: "位于 head 之前，直接写样式代码，不用添加 style 标签"
+        - $formkit: code
+          name: custom_js
+          label: 自定义JavaScript代码
+          height: 200px
+          language: javascript
+          help: "位于底部，直接填写JS代码，不需要添加 script 标签。"
+        - $formkit: code
+          name: custom_html_head
+          label: 自定义HTML代码-头部
+          height: 200px
+          language: html
+          help: "位于 head 之前，这部分代码是在主要内容显示之前加载，通常是CSS样式、自定义的 meta 标签、全站头部JS等需要提前加载的代码，需填HTML标签。"
+        - $formkit: code
+          name: custom_html_foot
+          label: 自定义HTML代码-底部
+          height: 200px
+          language: html
+          help: "位于 body 之前，这部分代码是在主要内容加载完毕加载，通常是其他自定义内容或JS代码，需填HTML标签。"

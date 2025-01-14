@@ -1,29 +1,34 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title th:text="${site.title}"></title>
-  <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
-  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
-  <link rel="stylesheet" th:href="@{/assets/css/normalize.css?v={version}(version=${theme.spec.version})}">
-</head>
-
-<body>
-  <main>
-    <!-- 导入header模块 -->
-    <header th:replace="~{modules/header.html}"></header>
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{modules/layout :: layout(_title = ${singlePage.spec.title},_content = ~{::content},_head = null)}">
 
 
+<th:block th:fragment="content">
+  <div class="col-sm-12 col-md-8" id="main" role="main">
+    <article class="post">
+      <!-- 页面标题 -->
+      <h1 class="post-title" itemprop="name headline">
+        <a itemprop="url" th:href="${singlePage.status.permalink}" th:text="${singlePage.spec.title}"></a>
+      </h1>
 
-    <!-- 导入sidebar模块 -->
-    <aside th:replace="~{modules/sidebar.html}"></aside>
-  </main>
+      <!-- 页面内容 -->
+      <div class="post-content" itemprop="articleBody" th:utext="${singlePage.content.content}">
+        <!-- 这里会显示页面的富文本内容 -->
+      </div>
+      <!-- 评论区 -->
+      <!-- 判断是否显示评论区 -->
+      <th:block th:if="${theme.config.comments.comments_page}">
+        <div class="moment-comments" th:id="${'singlePage-' + singlePage.metadata.name}"
+          th:style="${theme.config.comments.comments_page} ? 'display: block;' : 'display: none;'">
+          <div class="separator"></div>
+          <halo:comment group="content.halo.run" kind="SinglePage" th:attr="name=${singlePage.metadata.name}" />
+        </div>
+      </th:block>
+    </article>
+
+  </div><!-- end #main-->
 
 
-  <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}"></script>
-</body>
+</th:block>
 
 </html>

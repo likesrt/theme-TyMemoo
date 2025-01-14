@@ -1,29 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{modules/layout :: layout(_title = '文章归档',_content = ~{::content},_head = null)}">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title th:text="${site.title}"></title>
-  <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
-  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
-  <link rel="stylesheet" th:href="@{/assets/css/normalize.css?v={version}(version=${theme.spec.version})}">
-</head>
-
-<body>
-  <main>
-    <!-- 导入header模块 -->
-    <header th:replace="~{modules/header.html}"></header>
-
-
-
-    <!-- 导入sidebar模块 -->
-    <aside th:replace="~{modules/sidebar.html}"></aside>
-  </main>
-
-
-  <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}"></script>
-</body>
+<th:block th:fragment="content">
+  <div class="col-sm-12 col-md-8" id="archives" role="main">
+    <th:block th:each="archive : ${archives.items}">
+      <h1 th:text="${archive.year}"></h1>
+      <ul>
+        <th:block th:each="month : ${archive.months}">
+          <li class="post" th:each="post : ${month.posts}">
+            <h2 class="post-title" itemprop="name headline" style="font-size: 1.2em;">
+              <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
+            </h2>
+            <th:block th:if="${theme.config.general.excerpt_show}">
+              <div class="post-content" itemprop="articleBody">
+                <p th:text="${post.status.excerpt}"></p>
+              </div>
+            </th:block>
+          </li>
+        </th:block>
+      </ul>
+    </th:block>
+    <div class="pagination" th:if="${archives.hasPrevious() || archives.hasNext()}">
+      <a th:href="@{${archives.prevUrl}}" th:classappend="${!archives.hasPrevious()} ? 'disabled' : ''">
+        <span>上一页</span>
+      </a>
+      <span th:text="${archives.page} +' / '+ ${archives.totalPages}"></span>
+      <a th:href="@{${archives.nextUrl}}" th:classappend="${!archives.hasNext()} ? 'disabled' : ''">
+        <span>下一页</span>
+      </a>
+    </div>
+  </div>
+</th:block>
 
 </html>

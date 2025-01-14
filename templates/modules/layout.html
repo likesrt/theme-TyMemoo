@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" th:fragment="html (head,content)">
+<html lang="zh-CN" th:fragment="layout(_title,_content,_head)" data-theme-mode xmlns:th="http://www.thymeleaf.org"
+    th:with="site_title = ${not #strings.isEmpty(_title) ?  _title+' - '+site.title  :  #strings.isEmpty(site.subtitle) ? site.title :  site.title +' - ' +site.subtitle }">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2" />
-  <title th:text="${site.title}"></title>
-  <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
-  <link rel="stylesheet" th:href="@{/assets/css/normalize.css}" />
-  <script th:src="@{/assets/js/main.js}"></script>
-  <th:block th:if="${head != null}">
-    <th:block th:replace="${head}" />
-  </th:block>
-</head>
+<head th:replace="~{modules/head}"></head>
 
 <body>
-  <section>
-    <th:block th:replace="${content}" />
-  </section>
+    <div class="container">
+        <main>
+            <div class="overlay"></div>
+            <!-- 导入header模块 -->
+            <th:block th:replace="~{modules/header}" />
+            <!-- 导入content模块 -->
+            <th:block th:replace="${_content}" />
+            <!-- 导入sidebar模块 -->
+            <aside th:replace="~{modules/sidebar.html}"></aside>
+        </main>
+        <!-- 导入footer模块 -->
+        <th:block th:replace="~{modules/footer}" />
+    </div>
 </body>
 
 </html>

@@ -5,7 +5,7 @@ metadata:
 spec:
   displayName: TyMemoo
   author:
-    name: likesrt
+    name: yuyan
     website: "https://github.com/likesrt"
   description: "在halo上的typecho"
   logo: "https://www.halo.run/logo"
@@ -16,6 +16,13 @@ spec:
   configMapName: "theme-tymemoo-configMap"
   version: "1.0.0"
   requires: ">=2.0.0"
-  license:
-    - name: "GPL-3.0"
-      url: "https://github.com/likesrt/theme-TyMemoo/blob/master/LICENSE"
+  customTemplates:
+    page:
+      - name: 友链
+        description: 支持可预设文本的友链
+        screenshot:
+        file: page_links.html
+      - name: 关于
+        description: 关于模板
+        screenshot:
+        file: page_about.html

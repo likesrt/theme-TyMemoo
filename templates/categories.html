@@ -1,29 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title th:text="${site.title}"></title>
-  <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
-  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
-  <link rel="stylesheet" th:href="@{/assets/css/normalize.css?v={version}(version=${theme.spec.version})}">
-</head>
-
-<body>
-  <main>
-    <!-- 导入header模块 -->
-    <header th:replace="~{modules/header.html}"></header>
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{modules/layout :: layout(_title = '文章分类',_content = ~{::content},_head = null)}">
 
 
+<th:block th:fragment="content">
 
-    <!-- 导入sidebar模块 -->
-    <aside th:replace="~{modules/sidebar.html}"></aside>
-  </main>
+  <section class="col-sm-12 col-md-8">
+    <h1 class="tag-page-title">Post Category</h1>
+    <div class="tag-wall">
+      <style>
+        .main-reveal:hover {
+          transform: translateY(-2px); 
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+          transition: transform 0.2s, box-shadow 0.2s; 
+        }
+      </style>
+      
+      <ul th:if="${not #lists.isEmpty(categoryFinder.listAll())}" style="list-style-type: none; padding: 0;">
+        <th:block th:each="categoryItem : ${categoryFinder.listAll()}">
+          <li th:if="${categoryItem.status.visiblePostCount>0}" class="main-reveal" style="display: inline-block; margin-right: 10px; margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
+            <a th:href="@{${categoryItem.status.permalink}}" data-color="" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+              <div class="info" style="flex: 1;">
+                <span style="font-size: 14px; color: #666;">Total: [[${categoryItem.status.visiblePostCount}]] Post</span>
+                <h2 th:text="${categoryItem.spec.displayName}" style="margin: 5px 0; font-size: 18px; color: #333;"></h2>
+                <p th:text="${not #strings.isEmpty(categoryItem.spec.description) ? categoryItem.spec.description :''}" style="margin: 0; font-size: 14px; color: #777;">
+                </p>
+              </div>
+              <svg class="icon" aria-hidden="true" style="width: 24px; height: 24px; fill: #666;">
+                <use xlink:href="#icon-folder-full"></use>
+              </svg>
+            </a>
+          </li>
+        </th:block>
+      </ul>
+  </div>
+  </section>
 
-
-  <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}"></script>
-</body>
+</th:block>
 
 </html>

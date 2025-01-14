@@ -1,29 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title th:text="${site.title}"></title>
-  <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
-  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
-  <link rel="stylesheet" th:href="@{/assets/css/normalize.css?v={version}(version=${theme.spec.version})}">
-</head>
-
-<body>
-  <main>
-    <!-- 导入header模块 -->
-    <header th:replace="~{modules/header.html}"></header>
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{modules/layout :: layout(_title = '标签墙',_content = ~{::content},_head = ~{::head})}">
 
 
-
-    <!-- 导入sidebar模块 -->
-    <aside th:replace="~{modules/sidebar.html}"></aside>
-  </main>
-
-
-  <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}"></script>
-</body>
+<th:block th:fragment="content">
+  <div class="col-sm-12 col-md-8" id="tag-wall">
+    <!-- 页面标题 -->
+    <h1 class="tag-page-title">Post Tag</h1>
+    <!-- 遍历所有标签 -->
+    <div class="tag-wall">
+      <a th:each="tag : ${tags}" th:href="${tag.status.permalink}" class="tag-button"
+        th:style="|background-color: ${tag.spec.color};|">
+        <span th:text="${tag.spec.displayName}"></span>
+        <span class="tag-count" th:text="${tag.postCount}"></span>
+      </a>
+    </div>
+  </div>
+</th:block>
 
 </html>

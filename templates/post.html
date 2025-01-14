@@ -1,29 +1,88 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title th:text="${site.title}"></title>
-  <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
-  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
-  <link rel="stylesheet" th:href="@{/assets/css/normalize.css?v={version}(version=${theme.spec.version})}">
-</head>
-
-<body>
-  <main>
-    <!-- 导入header模块 -->
-    <header th:replace="~{modules/header.html}"></header>
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{modules/layout :: layout(_title = ${post.spec.title},_content = ~{::content},_head = null)}">
 
 
+<th:block th:fragment="content">
 
-    <!-- 导入sidebar模块 -->
-    <aside th:replace="~{modules/sidebar.html}"></aside>
-  </main>
+  <div class="col-sm-12 col-md-8" id="main" role="main">
+    <article class="post">
 
+      <section class="post-cover">
+        <!-- 如果有封面图且开启了封面图显示 -->
+        <div th:if="${not #strings.isEmpty(post.spec.cover) && theme.config.page.open_cover}">
+          <img th:src="${post.spec.cover}" alt="文章封面图" class="cover-image">
+        </div>
+      </section>
+      <h1 class="post-title" itemprop="name headline">
+        <a itemprop="url" th:href="${post.status.permalink}" th:text="${post.spec.title}"></a>
+      </h1>
+      <ul class="post-meta">
+        <!-- <li itemprop="author">
+          作者: <a itemprop="name" th:href="${post.owner.permalink}" rel="author" th:text="${post.owner.displayName}"></a>
+        </li> -->
+        <li>
+          时间:
+          <time datetime="${post.metadata.creationTimestamp}" itemprop="datePublished"
+            th:text="${#temporals.format(post.metadata.creationTimestamp, 'yyyy-MM-dd HH:mm')}">
+          </time>
+        </li>
+        <li>
+          分类:
+          <span th:each="category, stat : ${post.categories}">
+            <a th:href="@{/categories/{slug}(slug=${category.spec.slug})}" th:text="${category.spec.displayName}"></a>
+            <span th:unless="${stat.last}">, </span>
+          </span>
+        </li>
+        <li>
+          阅读: <span th:text="${post.stats.visit}"></span>
+        </li>
+        <li>
+          点赞: <span th:text="${post.stats.upvote}"></span>
+        </li>
+      </ul>
+      <div class="post-content" itemprop="articleBody" th:utext="${post.content.content}"></div>
+      <!-- 分割线 -->
+      <hr>
+      <p itemprop="keywords" class="tags">
+        标签:
+        <span th:each="tag, stat : ${post.tags}">
+          <a th:href="@{/tags/{slug}(slug=${tag.spec.slug})}" th:text="${tag.spec.displayName}"></a>
+          <span th:unless="${stat.last}">, </span>
+        </span>
+      </p>
+      <!-- 评论区 -->
+      <!-- 判断是否显示评论区 -->
+      <th:block th:if="${theme.config.comments.comments_post}">
+        <div class="moment-comments" th:id="${'post-' + post.metadata.name}"
+          th:style="${theme.config.comments.comments_post} ? 'display: block;' : 'display: none;'">
+          <div class="separator"></div>
+          <halo:comment group="content.halo.run" kind="Post" th:attr="name=${post.metadata.name}" />
+        </div>
+      </th:block>
+    </article>
 
-  <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}"></script>
-</body>
+    <!-- 上一篇和下一篇文章导航 -->
+    <div th:with="postCursor = ${postFinder.cursor(post.metadata.name)}">
+      <div class="row py-4">
+        <div class="col post-near">
+          上一篇:
+          <a th:if="${postCursor.hasPrevious()}" th:href="@{${postCursor.previous.status.permalink}}">
+            <span th:text="${postCursor.previous.spec.title}"></span>
+          </a>
+          <span th:unless="${postCursor.hasPrevious()}">没有了</span>
+        </div>
+        <div class="col post-near text-end">
+          下一篇:
+          <a th:if="${postCursor.hasNext()}" th:href="@{${postCursor.next.status.permalink}}">
+            <span th:text="${postCursor.next.spec.title}"></span>
+          </a>
+          <span th:unless="${postCursor.hasNext()}">没有了</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</th:block>
 
 </html>
