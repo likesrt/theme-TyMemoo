@@ -8,22 +8,21 @@
   <title th:text="${site.title}"></title>
   <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
   <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
-  <link rel="stylesheet" th:href="@{/assets/css/normalize.css?v={version}(version=${theme.spec.version})">
+  <link rel="stylesheet" th:href="@{/assets/css/normalize.css?v={version}(version=${theme.spec.version})}">
 </head>
 
 <body>
   <main>
-
     <aside th:replace="modules/sidebar.html"></aside>
 
     <div class="main-content">
+        <nav th:replace="modules/navbar.html"></nav>
 
-      <nav th:replace="modules/navbar.html"></nav>
+        <article class="blog active" data-page="最新文章">
+            <header>
+                <h2 class="h2 article-title">最新文章</h2>
+            </header>
 
-      <article class="blog active" data-page="最新文章">
-        <header>
-          <h2 class="h2 article-title">最新文章</h2>
-        </header>
         <section class="blog-posts">
           <ul class="blog-posts-list" th:with="posts = ${postFinder.list(page,10)}">
             <li class="blog-post-item" th:each="post : ${posts.items}">
