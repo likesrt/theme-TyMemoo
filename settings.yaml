@@ -7,26 +7,23 @@ spec:
     - group: general
       label: 常规设置
       formSchema:
+        - $formkit: text
+          name: site_title
+          label: 站点名称
         - $formkit: attachment
           name: logoUrl
           label: 站点 LOGO
           help: 在这里填入一个图片 URL 地址, 以在网站标题前加上一个 LOGO
           value: "https://file.likesrt.com/uploads/2024/12/23/%E5%9C%86%E8%A7%92-avatar.png!wp5"
-        - $formkit: text
-          name: icp
-          label: 站点ICP备案号
-          help: 请输入站点的ICP备案编号，该编号将显示在您站点的底部，示例：京ICP备20210282xxx号
-          value: ""
-        - $formkit: text
-          name: beian
-          label: 公备案号
-          help: 请输入公共备案号，该号码将显示在您站点的底部，示例：京公网安备 12345678号-1
-          value: ""
         - $formkit: attachment
           name: icoPath
           label: 站点favicon.ico图标
           help: 请输入favicon.ico图标文件位置，这将让图标展示在浏览器页签上，示例（默认值）：/usr/themes/memoo/favicon.ico
           value: "https://file.likesrt.com/uploads/2024/12/23/%E5%9C%86%E8%A7%92-avatar.png!wp5"
+        - $formkit: text
+          name: 
+          label: 顶部菜单
+          help: 顶部菜单
     - group: page
       label: 页面设置
       formSchema:
@@ -66,3 +63,43 @@ spec:
             - ShowArchive
             - ShowLogin
             - ShowRSS
+    - group: comments
+      label: 评论设置
+      formSchema:
+        - $formkit: checkbox
+          name: comments_page
+          label: 页面评论区
+          value: false
+          help: 开启后页面可使用评论功能
+        - $formkit: checkbox
+          name: comments_post
+          label: 文章评论区
+          value: false
+          help: 开启后文章详情页可使用评论功能
+        - $formkit: checkbox
+          name: comments_links
+          label: 友链评论区
+          value: false
+          help: 开启后友链页面可使用评论功能
+        - $formkit: checkbox
+          name: comments_moment
+          label: 瞬间评论区
+          value: false
+          help: 开启后瞬间页面可使用评论功能
+    - group: footer
+      label: 页脚设置
+      formSchema:
+        - $formkit: text
+          name: icp
+          label: ICP备案号
+          help: 页脚显示ICP备案号
+        - $formkit: text
+          name: icp_gov
+          label: 公网安备号
+          help: 页脚显示公网安备号
+          validation: required
+        - $formkit: checkbox
+          name: upyun
+          label: 又拍云联盟
+          value: false
+          help: 开启后页脚显示又拍云联盟链接

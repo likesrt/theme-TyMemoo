@@ -4,12 +4,16 @@
     <section class="widget">
         <h3 class="widget-title">最新文章</h3>
         <ul class="widget-list">
-            <th:block th:with="posts=${postFinder.listAll()}">
-                <!-- 过滤掉置顶文章 -->
-                <li th:each="post : ${posts}" th:if="${!post.spec.pinned}">
-                    <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
-                </li>
-                <li th:if="${posts == null}">获取最新文章时出错。</li>
+            <!-- 获取所有文章并过滤置顶文章 -->
+            <th:block th:with="allPosts=${postFinder.listAll()}">
+                <!-- 过滤置顶文章并按发布时间排序 -->
+                <th:block th:with="filteredPosts=${#lists.subList(#lists.sort(allPosts.![#this], T(java.util.Comparator).comparing(p -> -p.spec.publishTime.toEpochSecond())).?[!#this.spec.pinned], 0, 5)}">
+                    <!-- 显示最新的五篇文章 -->
+                    <li th:each="post : ${filteredPosts}" th:if="${filteredPosts != null}">
+                        <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
+                    </li>
+                    <li th:if="${filteredPosts == null or filteredPosts.empty}">暂无最新文章。</li>
+                </th:block>
             </th:block>
         </ul>
     </section>
