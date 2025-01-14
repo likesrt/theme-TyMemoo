@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${error.status + ' - ' + #strings.defaultString(error.title, '错误')}">错误</title>
+    <!-- 引入头部模板 -->
+    <th:block th:replace="header :: header"></th:block>
+</head>
+<body>
+    <div class="col-sm-12 col-md-8">
+        <div class="error-page">
+            <!-- 显示错误状态码和标题 -->
+            <h2 class="post-title" th:text="${error.status + ' - ' + #strings.defaultString(error.title, '错误')}">
+                4xx - 错误
+            </h2>
+            <!-- 显示错误详情，如果没有详情则显示默认提示 -->
+            <p th:text="${#strings.defaultString(error.detail, '你想查看的页面可能已被转移或删除，要不要搜索看看：')}">
+            </p>
+        </div>
+    </div><!-- end #content-->
+    <!-- 引入尾部模板 -->
+    <th:block th:replace="footer :: footer"></th:block>
+</body>
+</html>
