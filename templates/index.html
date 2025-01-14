@@ -13,10 +13,12 @@
 
 <body>
   <main>
-    <aside th:replace="modules/sidebar.html"></aside>
+    <!-- 使用新的片段表达式语法 -->
+    <aside th:replace="~{modules/sidebar.html}"></aside>
 
     <div class="main-content">
-        <nav th:replace="modules/navbar.html"></nav>
+        <!-- 如果需要使用 navbar，取消注释并更新语法 -->
+        <!-- <nav th:replace="~{modules/navbar.html}"></nav> -->
 
         <article class="blog active" data-page="最新文章">
             <header>
@@ -54,7 +56,5 @@
 
   <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}"></script>
 </body>
-
-
 
 </html>
