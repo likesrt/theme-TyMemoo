@@ -1,21 +1,22 @@
 apiVersion: theme.halo.run/v1alpha1
 kind: Theme
 metadata:
-  name: theme-starter
+  name: theme-TyMemoo
 spec:
-  displayName: Theme Starter
+  displayName: Theme TyMemoo
+  version: "1.0.0"
   author:
-    name: Halo
-    website: "https://github.com/halo-dev"
-  description: Halo 2.0 Theme base on Thymeleaf
+    name: likesrt
+    website: "https://github.com/likesrt"
+  description: "在halo上的typecho"
   logo: "https://www.halo.run/logo"
-  homepage: "https://github.com/halo-dev/theme-starter#readme"
-  repo: "https://github.com/halo-dev/theme-starter"
-  issues: "https://github.com/halo-dev/theme-starter/issues"
-  settingName: "theme-starter-setting"
-  configMapName: "theme-starter-configMap"
+  homepage: "https://github.com/likesrt/theme-TyMemoo"
+  repo: "https://github.com/halo-dev/theme-TyMemoo"
+  issues: "https://github.com/halo-dev/theme-TyMemoo/issues"
+  settingName: "theme-tymemoo-setting"
+  configMapName: "theme-tymemoo-configMap"
   version: "1.0.0"
   requires: ">=2.0.0"
   license:
     - name: "GPL-3.0"
-      url: "https://github.com/halo-dev/plugin-starter/blob/main/LICENSE"
+      url: "https://github.com/likesrt/theme-TyMemoo/blob/master/LICENSE"
