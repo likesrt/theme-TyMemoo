@@ -5,9 +5,10 @@
             <h3 class="widget-title">最新文章</h3>
             <ul class="widget-list">
                 <th:block th:with="posts=${postFinder.list(1, 5)}">
-                    <li th:each="post : ${posts.items}">
+                    <li th:each="post : ${posts.items}" th:if="${posts != null}">
                         <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
                     </li>
+                    <li th:if="${posts == null}">获取最新文章时出错。</li>
                 </th:block>
             </ul>
         </section>
@@ -19,12 +20,13 @@
             <h3 class="widget-title">最近回复</h3>
             <ul class="widget-list">
                 <th:block th:with="comments=${commentFinder.list({group: 'content.halo.run', version: 'v1alpha1', kind: 'Post', name: '*'}, 1, 5)}">
-                    <li th:each="comment : ${comments.items}">
+                    <li th:each="comment : ${comments.items}" th:if="${comments != null}">
                         <a th:href="@{${comment.spec.subjectRef.permalink}}">
                             <span th:text="${comment.spec.owner.displayName}"></span>: 
                             <span th:text="${comment.spec.content}"></span>
                         </a>
                     </li>
+                    <li th:if="${comments == null}">获取最近回复时出错。</li>
                 </th:block>
             </ul>
         </section>
@@ -36,9 +38,10 @@
             <h3 class="widget-title">分类</h3>
             <ul class="widget-list">
                 <th:block th:with="categories=${categoryFinder.listAll()}">
-                    <li th:each="category : ${categories}">
+                    <li th:each="category : ${categories}" th:if="${categories != null}">
                         <a th:href="@{${category.status.permalink}}" th:text="${category.spec.displayName}"></a>
                     </li>
+                    <li th:if="${categories == null}">获取分类时出错。</li>
                 </th:block>
             </ul>
         </section>
@@ -50,11 +53,12 @@
             <h3 class="widget-title">归档</h3>
             <ul class="widget-list">
                 <th:block th:with="archives=${postFinder.archives(1, 12)}">
-                    <li th:each="archive : ${archives.items}">
+                    <li th:each="archive : ${archives.items}" th:if="${archives != null}">
                         <a th:href="@{/archives/${archive.year}}">
                             <span th:text="${archive.year}"></span>
                         </a>
                     </li>
+                    <li th:if="${archives == null}">获取归档时出错。</li>
                 </th:block>
             </ul>
         </section>
@@ -66,13 +70,15 @@
             <h3 class="widget-title">其它</h3>
             <ul class="widget-list">
                 <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowLogin')}">
-                    <li th:if="${isAuthenticated()}">
-                        <a th:href="@{/admin}">进入后台 ([[${user.spec.displayName}]])</a>
-                        <a th:href="@{/logout}">退出登录</a>
-                    </li>
-                    <li th:if="${!isAuthenticated()}">
-                        <a th:href="@{/login}">账号登录</a>
-                    </li>
+                    <div sec:authorize="isAuthenticated()">
+                        <th:block>
+                            <a href="/console" class="setting">管理</a>
+                            <a href="/logout" class="logout">退出</a>
+                        </th:block>
+                    </div>
+                    <div sec:authorize="isAnonymous()">
+                        <a href="/console/login" class="login">登录</a>
+                    </div>
                 </th:block>
                 <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRSS')}">
                     <li><a th:href="@{/feed}">文章 RSS</a></li>
