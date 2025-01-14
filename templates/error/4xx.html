@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title th:text="${error.status + ' - ' + #strings.defaultString(error.title, '错误')}">错误</title>
     <!-- 引入头部模板 -->
-    <th:block th:replace="header :: header"></th:block>
+    <th:block th:replace="modules/header"></th:block>
+     
 </head>
 <body>
     <div class="col-sm-12 col-md-8">
@@ -18,6 +20,6 @@
         </div>
     </div><!-- end #content-->
     <!-- 引入尾部模板 -->
-    <th:block th:replace="footer :: footer"></th:block>
+    <th:block th:replace="modules/footer"></th:block>
 </body>
 </html>

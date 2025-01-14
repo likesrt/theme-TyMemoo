@@ -3,7 +3,7 @@ kind: Theme
 metadata:
   name: theme-TyMemoo
 spec:
-  displayName: Theme TyMemoo
+  displayName: TyMemoo
   author:
     name: likesrt
     website: "https://github.com/likesrt"

@@ -4,10 +4,65 @@ metadata:
   name: theme-tymemoo-setting
 spec:
   forms:
-    - group: style
-      label: 样式
+    - group: general
+      label: 常规设置
       formSchema:
-        - $formkit: color
-          name: background_color
-          label: 背景颜色
-          value: "#f2f2f2"
+        - $formkit: text
+          name: logoUrl
+          label: 站点 LOGO 地址
+          help: 在这里填入一个图片 URL 地址, 以在网站标题前加上一个 LOGO
+          value: ""
+        - $formkit: text
+          name: icp
+          label: 站点ICP备案号
+          help: 请输入站点的ICP备案编号，该编号将显示在您站点的底部，示例：京ICP备20210282xxx号
+          value: ""
+        - $formkit: text
+          name: beian
+          label: 公备案号
+          help: 请输入公共备案号，该号码将显示在您站点的底部，示例：京公网安备 12345678号-1
+          value: ""
+        - $formkit: text
+          name: icoPath
+          label: 站点favicon.ico图标文件位置
+          help: 请输入favicon.ico图标文件位置，这将让图标展示在浏览器页签上，示例（默认值）：/usr/themes/memoo/favicon.ico
+          value: "/usr/themes/memoo/favicon.ico"
+    - group: page
+      label: 页面设置
+      formSchema:
+        - $formkit: checkbox
+          name: open_cover
+          label: 页面/文章头图
+          value: true
+          help: 开启后显示头图
+        - $formkit: checkbox
+          name: friend_sup
+          label: 友链自助申请
+          value: false
+          help: 开启后用户可在友链页面自助填写申请友情链接 (需要友链自助提交插件)
+    - group: sidebar
+      label: 侧边栏设置
+      formSchema:
+        - $formkit: checkbox
+          name: sidebarBlock
+          label: 侧边栏显示
+          options:
+            - label: 显示最新文章
+              value: ShowRecentPosts
+            - label: 显示最近回复
+              value: ShowRecentComments
+            - label: 显示分类
+              value: ShowCategory
+            - label: 显示归档
+              value: ShowArchive
+            - label: 显示登录入口
+              value: ShowLogin
+            - label: 显示RSS订阅
+              value: ShowRSS
+          value:
+            - ShowRecentPosts
+            - ShowRecentComments
+            - ShowCategory
+            - ShowArchive
+            - ShowLogin
+            - ShowRSS
