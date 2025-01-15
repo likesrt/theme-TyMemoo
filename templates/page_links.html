@@ -23,15 +23,19 @@
     </th:block>
     <!-- 页面内容 -->
     <div class="content main-reveal" th:utext="${singlePage.content.content}"></div>
-      <!-- 评论区 -->
-      <!-- 判断是否显示评论区 -->
-      <th:block th:if="${theme.config.comments.comments_page}">
-        <div class="moment-comments" th:id="${'singlePage-' + singlePage.metadata.name}"
-          th:style="${theme.config.comments.comments_page} ? 'display: block;' : 'display: none;'">
-          <div class="separator"></div>
-          <halo:comment group="content.halo.run" kind="SinglePage" th:attr="name=${singlePage.metadata.name}" />
-        </div>
-      </th:block>
+
+    <hr>
+    <!-- 申请友链 -->
+    <th:block th:replace="~{modules/linksSubmit}" /> 
+    <!-- 评论区 -->
+    <!-- 判断是否显示评论区 -->
+    <th:block th:if="${theme.config.comments.comments_links}">
+      <div class="moment-comments" th:id="${'singlePage-' + singlePage.metadata.name}"
+        th:style="${theme.config.comments.comments_links} ? 'display: block;' : 'display: none;'">
+        <div class="separator"></div>
+        <halo:comment group="content.halo.run" kind="SinglePage" th:attr="name=${singlePage.metadata.name}" />
+      </div>
+    </th:block>
   </div>
 
 

@@ -15,6 +15,13 @@
       <div class="post-content" itemprop="articleBody" th:utext="${singlePage.content.content}">
         <!-- 这里会显示页面的富文本内容 -->
       </div>
+      <hr>
+      <!-- 页面点赞 -->
+      <button class="meta-item like-btn" data-type="singlepages" th:attr="data=${singlePage.metadata.name}"
+        th:classappend="${#authentication.isAuthenticated()} ? 'can-like' : ''">
+        点赞
+        <span th:text="${singlePage.stats.upvote}"></span>
+      </button>
       <!-- 评论区 -->
       <!-- 判断是否显示评论区 -->
       <th:block th:if="${theme.config.comments.comments_page}">

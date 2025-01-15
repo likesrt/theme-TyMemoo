@@ -6,7 +6,10 @@
     <meta name="viewport"
         content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
-    <title th:text="${site_title}"></title>
+    <link rel="shortcut icon"
+        th:href="${#strings.isEmpty(theme.config.general.icoPath) ? site.favicon : theme.config.general.icoPath}"
+        type="image/x-icon" />
+    <title th:text="${#strings.defaultString(site.title, 'Halo')}"></title>
 
     <!-- 使用 Halo 的静态资源引用方式 -->
     <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}" />
@@ -21,5 +24,4 @@
         th:utext="${theme.config.custom.custom_html_head}"> </th:block>
     <style type="text/css" th:if="${not #strings.isEmpty(theme.config.custom.custom_css)}"
         th:utext="${theme.config.custom.custom_css}"></style>
-
-</head>.
+</head>

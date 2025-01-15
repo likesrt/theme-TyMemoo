@@ -68,8 +68,8 @@
 
               <!-- 瞬间元信息和交互 -->
               <div class="moment-meta">
-                <!-- 点赞 绑定点击事件 handleUpvote-->
-                <button class="meta-item like-btn" th:attr="data-moment=${moment.metadata.name}"
+                <!-- 瞬间点赞 -->
+                <button class="meta-item like-btn" data-type="moment" th:attr="data=${moment.metadata.name}"
                   th:classappend="${#authentication.isAuthenticated()} ? 'can-like' : ''">
                   点赞
                   <span th:text="${moment.stats.upvote}"></span>
@@ -89,7 +89,6 @@
               </div>
 
               <!-- 评论区 -->
-
               <div class="moment-comments" th:id="${'comments-' + moment.metadata.name}" style="display: none;">
                 <div class="separator"></div>
                 <halo:comment group="moment.halo.run" kind="Moment" th:attr="name=${moment.metadata.name}" />

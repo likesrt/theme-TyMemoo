@@ -5,22 +5,29 @@
             &copy; [[${#dates.format(new java.util.Date(), 'yyyy')}]] <a href="/" th:text="${site.title}"></a>.
         </div>
         <div class="powered">
-            Powered by <a href="//halo.run/" target="_blank">Halo</a>, themed by <a href="https://github.com/likesrt/theme-TyMemoo">TyMemoo</a>.
+            Powered by <a href="//halo.run/" target="_blank">Halo</a>, themed by <a
+                href="https://github.com/likesrt/theme-TyMemoo">TyMemoo</a>.
         </div>
 
         <!-- 又拍云图标 -->
         <div class="upyun" th:if="${theme.config.footer.upyun}">
-            本网站由<a href="//www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"><img th:src="@{/assets/images/upyun.png}" alt="又拍云"></a>提供CDN加速/云存储服务
-            </div>
+            本网站由<a href="//www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"><img
+                    th:src="@{/assets/images/upyun.png}" alt="又拍云"></a>提供CDN加速/云存储服务
+        </div>
         <!-- 备案信息 -->
-        <th:block th:if="${not #strings.isEmpty(theme.config.footer.icp) || not #strings.isEmpty(theme.config.footer.icp_gov)}">
-            <div class="icp">
-                <a th:if="${not #strings.isEmpty(theme.config.footer.icp)}" href="//beian.miit.gov.cn" target="_blank" th:text="${theme.config.footer.icp}"></a>
-                <a th:if="${not #strings.isEmpty(theme.config.footer.icp_gov)}" href="//beian.mps.gov.cn/#/query/webSearch" target="_blank" th:text="${theme.config.footer.icp_gov}"></a>
-            </div>
-        </th:block>
-        
+        <div class="icp">
+            <a th:if="${not #strings.isEmpty(theme.config.footer.icp)}" href="//beian.miit.gov.cn" target="_blank"
+                th:text="${theme.config.footer.icp}"></a>
+
+            <a th:if="${not #strings.isEmpty(theme.config.footer.icp_gov)}" href="//beian.mps.gov.cn/#/query/webSearch"
+                target="_blank">
+                <img th:src="@{https://file.likesrt.com/uploads/2024/11/15/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png!wp5}"
+                    style="vertical-align: middle; margin-right: 1px; margin-left: 10px; width: 16px;">
+                <span th:text="${theme.config.footer.icp_gov}"></span>
+            </a>
+        </div>
+        <th:block th:if="${not #strings.isEmpty(theme.config.custom.custom_html_foot)}"
+            th:utext="${theme.config.custom.custom_html_foot}"> </th:block>
     </section>
-     <halo:footer />
-     <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}" defer></script>
+    <halo:footer />
 </footer>

@@ -10,16 +10,21 @@ spec:
         - $formkit: text
           name: site_title
           label: 站点名称
+          help: 站点名称 不填将使用全局设置中的站点名称
         - $formkit: attachment
           name: logoUrl
           label: 站点 LOGO
-          help: 在这里填入一个图片 URL 地址, 以在网站标题前加上一个 LOGO
+          help: 在这里填入一个图片 URL 地址, 以在网站标题前加上一个 LOGO 不填则不显示
           value: "https://file.likesrt.com/uploads/2024/12/23/%E5%9C%86%E8%A7%92-avatar.png!wp5"
         - $formkit: attachment
           name: icoPath
-          label: 站点favicon.ico图标
+          label: 站点favicon.ico图标 不填将使用全局设置中的图标
           help: 请输入favicon.ico图标文件位置，这将让图标展示在浏览器页签上，示例（默认值）：/usr/themes/memoo/favicon.ico
           value: "https://file.likesrt.com/uploads/2024/12/23/%E5%9C%86%E8%A7%92-avatar.png!wp5"
+        - $formkit: text
+          name: site_description
+          label: 站点描述
+          help: 首页描述文字 不填将使用全局设置中的描述
         - $formkit: checkbox
           name: excerpt_show
           label: 摘要显示
@@ -36,7 +41,7 @@ spec:
       formSchema:
         - $formkit: checkbox
           name: open_cover
-          label: 页面/文章头图
+          label: 文章头图
           value: true
           help: 开启后显示头图
         - $formkit: checkbox
@@ -55,8 +60,8 @@ spec:
               value: ShowSearch
             - label: 显示联系方式
               value: ShowContact
-            - label: 显示最新文章
-              value: ShowRecentPosts
+            - label: 显示热门文章
+              value: ShowPopularPosts
             - label: 显示最近回复
               value: ShowRecentComments
             - label: 显示分类
@@ -67,15 +72,18 @@ spec:
               value: ShowLogin
             - label: 显示RSS订阅
               value: ShowRSS
+            - label: 显示站点统计
+              value: ShowStatistics
           value:
             - ShowSearch
             - ShowContact
-            - ShowRecentPosts
+            - ShowPopularPosts
             - ShowRecentComments
             - ShowCategory
             - ShowArchive
             - ShowLogin
             - ShowRSS
+            - ShowStatistics 
         - $formkit: repeater
           name: socialMedia
           help: 社交媒体设置

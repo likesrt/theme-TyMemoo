@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>友链自助提交</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="友链自助提交" />
+    <style>
+        .linksSubmit-clear {
+            clear: both;
+        }
+
+        .linksSubmit-input[type="text"],
+        .linksSubmit-input[type="email"],
+        .linksSubmit-input[type="password"] {
+            font-size: 15px;
+            font-weight: 500;
+            text-align: left;
+            letter-spacing: 1px;
+            padding: 12px 10px;
+            width: 90%;
+            display: inline-block;
+            box-sizing: border-box;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .linksSubmit-input-group {
+            padding: 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 28px;
+            margin-top: 7px;
+        }
+
+        .linksSubmit-selectpicker {
+            padding: 12px 10px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 15px;
+            width: 100%;
+            display: inline-block;
+            box-sizing: border-box;
+            border: none;
+            outline: none;
+        }
+
+        .linksSubmit-btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .linksSubmit-btn-danger {
+            color: #fff;
+            background-color: #4CAF50;
+            margin-top: 30px;
+            width: 49%;
+            outline: none;
+            padding: 15px 12px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            font-size: 15px;
+            font-weight: 600;
+            border: 1px solid #4CAF50;
+            text-transform: uppercase;
+            transition: 0.5s all;
+        }
+
+        .linksSubmit-btn-danger:hover {
+            background: transparent;
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+        }
+
+        .linksSubmit-h2 {
+            display: inline-block;
+            font-size: 26px;
+            margin-bottom: 40px;
+            color: #4CAF50;
+            letter-spacing: 2px;
+        }
+
+        .linksSubmit-w3-info {
+            flex-basis: 65%;
+            box-sizing: border-box;
+            padding: 2em;
+            background-color: #fff;
+        }
+
+        .linksSubmit-btn {
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+            border: 1px solid #fff;
+            padding: 12px 40px;
+            display: inline-block;
+            margin-top: 1em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .linksSubmit-btn:hover {
+            background: #fff;
+            color: #4CAF50;
+        }
+
+        .linksSubmit-agile-info {
+            display: flex;
+        }
+
+        .linksSubmit-left {
+            width: 49%;
+            float: left;
+        }
+
+        .linksSubmit-margin {
+            margin-right: 2%;
+        }
+
+        .linksSubmit-label {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #777;
+        }
+
+        .linksSubmit-container {
+            width: 75%;
+            margin: 0 auto;
+        }
+
+        @media screen and (max-width: 768px) {
+            .linksSubmit-agile-info {
+                flex-direction: column;
+            }
+        }
+
+        .linksSubmit-alert-box {
+            position: fixed;
+            top: 2%;
+            left: 75%;
+            background-color: #4CAF50;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 1000;
+            text-align: center;
+            color: #fff;
+        }
+
+        /* 弹窗样式 */
+        @keyframes linksSubmit-fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .linksSubmit-overlay {
+            background-color: rgba(0, 0, 0, 20%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            z-index: 100;
+            overflow: overlay;
+            animation: linksSubmit-fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .linksSubmit-modal {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            margin-top: 20px;
+            position: relative;
+            animation: linksSubmit-fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .linksSubmit-modal-header {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+
+        .linksSubmit-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .linksSubmit-modal-footer button {
+            padding: 8px 16px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .linksSubmit-modal-footer button.primary {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        .linksSubmit-modal-footer button.primary:hover {
+            background-color: #45a049;
+        }
+
+        .linksSubmit-modal-footer button.secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .linksSubmit-modal-footer button.secondary:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 申请友链按钮 -->
+    <div style="display: flex; justify-content: center;">
+        <button onclick="linksSubmit()" style="
+            background-color: #0088DD;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            transition-duration: 0.4s;
+        ">
+            申请友链
+        </button>
+    </div>
+
+    <!-- 弹窗结构 -->
+    <div class="linksSubmit-overlay" id="linksSubmitOverlay" onclick="closeModal(event)">
+        <div class="linksSubmit-modal" onclick="event.stopPropagation()">
+            <div class="linksSubmit-w3-info">
+                <h2 class="linksSubmit-h2">提交信息</h2>
+                <div id="submitForm">
+                    <div class="linksSubmit-left linksSubmit-margin">
+                        <label class="linksSubmit-label">网站名称 *</label>
+                        <div class="linksSubmit-input-group">
+                            <input type="text" id="siteName" placeholder="网站名称" class="linksSubmit-input">
+                        </div>
+                    </div>
+                    <div class="linksSubmit-left">
+                        <label class="linksSubmit-label">网站地址 *</label>
+                        <div class="linksSubmit-input-group">
+                            <input type="text" id="siteUrl" placeholder="网站地址" class="linksSubmit-input">
+                        </div>
+                    </div>
+                    <div class="linksSubmit-left linksSubmit-margin">
+                        <label class="linksSubmit-label">电子邮箱</label>
+                        <div class="linksSubmit-input-group">
+                            <input type="email" id="email" placeholder="电子邮箱" class="linksSubmit-input">
+                        </div>
+                    </div>
+                    <div class="linksSubmit-left">
+                        <label class="linksSubmit-label">网站描述</label>
+                        <div class="linksSubmit-input-group">
+                            <input type="text" id="description" placeholder="网站描述" class="linksSubmit-input">
+                        </div>
+                    </div>
+                    <div class="linksSubmit-left linksSubmit-margin">
+                        <label class="linksSubmit-label">网站LOGO *</label>
+                        <div class="linksSubmit-input-group">
+                            <input type="text" id="linkslogo" placeholder="网站LOGO" class="linksSubmit-input">
+                        </div>
+                    </div>
+                    <div class="linksSubmit-left">
+                        <label class="linksSubmit-label">友链分组</label>
+                        <div class="linksSubmit-input-group">
+                            <select id="linkGroupSelect" class="linksSubmit-selectpicker"></select>
+                        </div>
+                    </div>
+                    <div class="linksSubmit-left linksSubmit-margin">
+                        <label class="linksSubmit-label">友链页面</label>
+                        <div class="linksSubmit-input-group">
+                            <input type="text" id="linkPage" placeholder="贵站展示本站链接的页面地址，一般是友链页面，填写后将自动验证" class="linksSubmit-input">
+                        </div>
+                    </div>
+                    <div class="linksSubmit-left">
+                        <label class="linksSubmit-label">RSS 地址</label>
+                        <div class="linksSubmit-input-group">
+                            <input type="text" id="rss" placeholder="用于抓取文章" class="linksSubmit-input">
+                        </div>
+                    </div>
+                    <div class="linksSubmit-left linksSubmit-margin">
+                        <label class="linksSubmit-label"><span id="captcha"></span></label>
+                        <div class="linksSubmit-input-group">
+                            <input type="text" id="captchaInput" placeholder="让我考考你" class="linksSubmit-input">
+                        </div>
+                    </div>
+                    <button class="linksSubmit-btn-danger linksSubmit-btn-block" type="button" id="submitButton">提交 <i
+                            class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 显示弹窗
+        function linksSubmit() {
+            var overlay = document.getElementById('linksSubmitOverlay');
+            overlay.style.display = 'flex';
+        }
+
+        // 关闭弹窗
+        function closeModal(event) {
+            if (event.target === document.getElementById('linksSubmitOverlay')) {
+                var overlay = document.getElementById('linksSubmitOverlay');
+                overlay.style.display = 'none';
+            }
+        }
+        // 表单提交逻辑
+        document.addEventListener('DOMContentLoaded', function () {
+            // 获取下拉选择列表的元素
+            var selectElement = document.getElementById('linkGroupSelect');
+
+            // 从API获取数据并填充到下拉选择列表中
+            fetch('/apis/linksSubmit.muyin.site/v1alpha1/linkGroups')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(group => {
+                        var option = document.createElement('option');
+                        option.text = group.groupName;
+                        option.value = group.groupId;
+                        selectElement.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching link groups:', error);
+                });
+
+            // 生成加法验证码
+            generateCaptcha();
+
+            // 提交按钮点击事件
+            document.getElementById('submitButton').addEventListener('click', function () {
+                // 禁用提交按钮，防止重复提交
+                disableSubmitButton(true);
+
+                // 验证验证码
+                var userCaptcha = parseInt(document.getElementById('captchaInput').value);
+                var correctCaptcha = parseInt(document.getElementById('captcha').dataset.sum);
+
+                // 检查必填项
+                var siteName = document.getElementById('siteName').value;
+                var siteUrl = document.getElementById('siteUrl').value;
+
+                let errorConditions = [
+                    {
+                        condition: !siteName,
+                        message: '网站名称不能为空。',
+                        elementId: 'siteName'
+                    },
+                    {
+                        condition: !siteUrl,
+                        message: '网站地址不能为空。',
+                        elementId: 'siteUrl'
+                    },
+                    {
+                        condition: userCaptcha !== correctCaptcha,
+                        message: '验证码错误，请重新输入。',
+                        elementId: 'captchaInput',
+                        extraAction: generateCaptcha
+                    },
+                    { 
+                        condition: !document.getElementById('linkslogo').value,
+                        message: '网站LOGO不能为空。',
+                        elementId: 'linkslogo'
+                    }
+                ];
+
+                for (let error of errorConditions) {
+                    if (error.condition) {
+                        infoAlert(error.message);
+                        document.getElementById(error.elementId).focus();
+                        if (error.extraAction) error.extraAction();
+                        disableSubmitButton(false);
+                        return;
+                    }
+                }
+
+                // 获取表单数据
+                var formData = {
+                    displayName: siteName,
+                    url: siteUrl,
+                    email: document.getElementById('email').value,
+                    description: document.getElementById('description').value,
+                    logo: document.getElementById('linkslogo').value,
+                    groupName: document.getElementById('linkGroupSelect').value,
+                    linkPageUrl: document.getElementById('linkPage').value,
+                    rssUrl: document.getElementById('rss').value
+                };
+
+                // 提交数据
+                fetch('/apis/linksSubmit.muyin.site/v1alpha1/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.code) {
+                            if (data.code === 200) {
+                                infoAlert(data.msg);
+                            } else {
+                                infoAlert(data.msg);
+                            }
+                        } else if (data.status) {
+                            if (data.status === 500) {
+                                infoAlert('错误: ' + data.title + ' - ' + data.detail);
+                            } else {
+                                infoAlert('未知错误');
+                            }
+                        } else {
+                            infoAlert('未知响应格式');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('请求错误:', error);
+                        infoAlert('请求失败，请稍后重试。');
+                    });
+
+                // 启用提交按钮
+                disableSubmitButton(false);
+            });
+        });
+
+        function generateCaptcha() {
+            var num1 = Math.floor(Math.random() * 21);
+            var num2 = Math.floor(Math.random() * 21);
+            var sum = num1 + num2;
+
+            var captchaElement = document.getElementById('captcha');
+            captchaElement.innerText = `${num1}+${num2}=？`;
+            captchaElement.dataset.sum = sum;
+        }
+
+        function infoAlert(message) {
+            var alertBox = document.createElement('div');
+            alertBox.className = 'linksSubmit-alert-box';
+            alertBox.innerHTML = `${message}`;
+            document.body.appendChild(alertBox);
+            setTimeout(function () {
+                if (alertBox && alertBox.parentElement) {
+                    alertBox.remove();
+                }
+            }, 2000);
+        }
+
+        function disableSubmitButton(disabled) {
+            var submitButton = document.getElementById('submitButton');
+            if (disabled) {
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
+            }
+        }
+    </script>
+</body>
+
+</html>

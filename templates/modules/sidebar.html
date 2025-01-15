@@ -1,13 +1,13 @@
 <div class="col-sm-12 col-md-4" id="secondary" role="complementary">
 
     <!-- 显示搜索框 -->
-    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowSearch')}">
+    <!-- <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowSearch')}">
         <section class="widget">
             <a href="javascript:SearchWidget.open()" title="搜索文章">
                 <h3 class="widget-title">搜索文章</h3>
             </a>
         </section>
-    </th:block>
+    </th:block> -->
 
     <!-- 显示联系方式 -->
     <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowContact')}">
@@ -21,18 +21,18 @@
             </ul>
         </section>
     </th:block>
-    <!-- 显示最新文章 -->
-    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRecentPosts')}">
+    <!-- 显示热门文章 -->
+    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowPopularPosts')}">
         <section class="widget">
-            <h3 class="widget-title">最新文章</h3>
-            <div th:with='archives = ${postFinder.archives(1,5)}'>
+            <h3 class="widget-title">热门文章</h3>
+            <div th:with='posts = ${postFinder.list({
+                page: 1,
+                size: 5,
+                sort: {"stats.visit,desc"}
+            })}'>
                 <div>
-                    <th:block th:each="archive : ${archives.items}">
-                        <th:block th:each="month : ${archive.months}">
-                            <div th:each="post : ${month.posts}">
-                                <p><a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a></p>
-                            </div>
-                        </th:block>
+                    <th:block th:each="post : ${posts.items}">
+                        <p><a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a></p>
                     </th:block>
                 </div>
             </div>
@@ -76,22 +76,47 @@
         </section>
     </th:block>
 
-<!-- 显示归档 -->
-<th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowArchive')}">
-    <section class="widget">
-        <h3 class="widget-title">文章归档</h3>
-        <ul class="widget-list">
-            <th:block th:with="archives=${postFinder.archives(1, 5)}"> <!-- 获取最近五年的归档 -->
-                <li th:each="archive : ${archives.items}" th:if="${archives != null}">
-                    <a th:href="@{/archives}">
-                        <span th:text="${archive.year}"></span>
-                    </a>
-                </li>
-            </th:block>
-        </ul>
-    </section>
-</th:block>
-
+    <!-- 显示归档 -->
+    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowArchive')}">
+        <section class="widget">
+            <h3 class="widget-title">文章归档</h3>
+            <ul class="widget-list">
+                <th:block th:with="archives=${postFinder.archives(1, 5)}"> <!-- 获取最近五年的归档 -->
+                    <li th:each="archive : ${archives.items}" th:if="${archives != null}">
+                        <a th:href="@{/archives}">
+                            <span th:text="${archive.year}"></span>
+                        </a>
+                    </li>
+                </th:block>
+            </ul>
+        </section>
+    </th:block>
+    <!-- 站点统计 -->
+    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowStatistics')}">
+        <section class="widget">
+            <h3 class="widget-title">站点统计</h3>
+            <ul class="widget-list">
+                <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowStatistics')}"
+                    th:with="stats = ${siteStatsFinder.getStats()}">
+                    <li>
+                        访问数量: <span th:text="${stats.visit}"></span>
+                    </li>
+                    <li>
+                        点赞数量: <span th:text="${stats.upvote}"></span>
+                    </li>
+                    <li>
+                        评论数量: <span th:text="${stats.comment}"></span>
+                    </li>
+                    <li>
+                        文章数量: <span th:text="${stats.post}"></span>
+                    </li>
+                    <li>
+                        分类数量: <span th:text="${stats.category}"></span>
+                    </li>
+                </th:block>
+            </ul>
+        </section>
+    </th:block>
     <!-- 显示登录入口和RSS订阅 -->
     <th:block
         th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowLogin') || #lists.contains(theme.config.sidebar.sidebarBlock, 'ShowRSS')}">

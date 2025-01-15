@@ -125,16 +125,48 @@ textarea {
 #logo {
   color: #333;
   font-size: 2.5em;
+  margin-right: 15px;
+  align-self: center;
 }
 
 #logo img {
-  max-height: 64px;
+  width: 60px;
+  height: 60px;
+  border-radius: 12%;
+  display: block;
+  margin: auto;
 }
 
 .description {
   margin: .5em 0 0;
   color: #999;
   font-style: italic;
+  font-size: 1.1em;
+}
+
+.site-name {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+}
+
+#site-title {
+  margin: 0 0 10px 0;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+/* 大屏幕样式 */
+@media (min-width: 768px) {
+  .site-name {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  #logo {
+    margin-right: 15px;
+  }
 }
 
 /* Navigation menu */
@@ -719,7 +751,7 @@ img.alignright {
   /* 悬停时稍微上移 */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   /* 悬停时阴影加深 */
-  transition: transform 0.2s, box-shadow 0.2s; 
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .tag-count {
@@ -803,11 +835,13 @@ img.alignright {
 }
 
 .moment-author .author-avatar {
-  width: 50px; /* 头像尺寸统一为 50x50 */
+  width: 50px;
+  /* 头像尺寸统一为 50x50 */
   height: 50px;
   border-radius: 10%;
   margin-right: 10px;
-  object-fit: cover; /* 确保图片比例不变 */
+  object-fit: cover;
+  /* 确保图片比例不变 */
 }
 
 .moment-author .author-name {
@@ -827,19 +861,23 @@ img.alignright {
   margin-bottom: 15px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* 图片之间的间距 */
+  gap: 10px;
+  /* 图片之间的间距 */
 }
 
 .moment-media .moment-img img {
-  width: 140px; /* 图片尺寸统一为 140x140 */
+  width: 140px;
+  /* 图片尺寸统一为 140x140 */
   height: 140px;
   border-radius: 8px;
-  object-fit: cover; /* 确保图片比例不变 */
+  object-fit: cover;
+  /* 确保图片比例不变 */
 }
 
 .moment-media .moment-video .video-wrapper {
   position: relative;
-  width: 140px; /* 视频尺寸统一为 140x140 */
+  width: 140px;
+  /* 视频尺寸统一为 140x140 */
   height: 140px;
 }
 
@@ -847,7 +885,8 @@ img.alignright {
   width: 100%;
   height: 100%;
   border-radius: 8px;
-  object-fit: cover; /* 确保视频比例不变 */
+  object-fit: cover;
+  /* 确保视频比例不变 */
 }
 
 .moment-media .moment-video .video-play-btn {
@@ -881,14 +920,19 @@ button.meta-item {
   padding: 0;
   display: flex;
   align-items: center;
-  gap: 4px; /* 调整文字和数字之间的间距 */
-  font-size: 14px; /* 调整字体大小 */
-  color: #333; /* 调整文字颜色 */
+  gap: 4px;
+  /* 调整文字和数字之间的间距 */
+  font-size: 14px;
+  /* 调整字体大小 */
+  color: #333;
+  /* 调整文字颜色 */
 }
 
 button.meta-item:hover {
-  color: #007bff; /* 鼠标悬停时的文字颜色 */
+  color: #007bff;
+  /* 鼠标悬停时的文字颜色 */
 }
+
 /* 评论区 */
 .moment-comments {
   margin-top: 20px;
@@ -925,4 +969,3 @@ button.meta-item:hover {
   background-color: #007bff;
   color: #fff;
 }
-

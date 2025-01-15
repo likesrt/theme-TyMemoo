@@ -22,6 +22,9 @@
           <time th:datetime="*{#dates.format(spec.publishTime, 'yyyy-MM-dd')}"
             th:text="*{#dates.format(spec.publishTime, 'yyyy-MM-dd')}"></time>
         </li>
+        <li>
+          阅读: <span th:text="${post.stats.visit}"></span>
+        </li>
         <!-- 分类 -->
         <li>
           <span>分类: </span>

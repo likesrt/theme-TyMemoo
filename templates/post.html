@@ -44,6 +44,12 @@
       <div class="post-content" itemprop="articleBody" th:utext="${post.content.content}"></div>
       <!-- 分割线 -->
       <hr>
+      <!-- 文章点赞 -->
+      <button class="meta-item like-btn" data-type="content" th:attr="data=${post.metadata.name}"
+        th:classappend="${#authentication.isAuthenticated()} ? 'can-like' : ''">
+        点赞
+        <span th:text="${post.stats.upvote}"></span>
+      </button>
       <p itemprop="keywords" class="tags">
         标签:
         <span th:each="tag, stat : ${post.tags}">

@@ -12,11 +12,11 @@
             <h2 class="post-title" itemprop="name headline" style="font-size: 1.2em;">
               <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
             </h2>
-            <th:block th:if="${theme.config.general.excerpt_show}">
+            <!-- <th:block th:if="${theme.config.general.excerpt_show}">
               <div class="post-content" itemprop="articleBody">
                 <p th:text="${post.status.excerpt}"></p>
               </div>
-            </th:block>
+            </th:block> -->
           </li>
         </th:block>
       </ul>

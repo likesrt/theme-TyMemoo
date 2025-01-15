@@ -13,11 +13,15 @@
             <!-- 导入content模块 -->
             <th:block th:replace="${_content}" />
             <!-- 导入sidebar模块 -->
-            <aside th:replace="~{modules/sidebar.html}"></aside>
+            <aside th:replace="~{modules/sidebar}"></aside>
         </main>
         <!-- 导入footer模块 -->
         <th:block th:replace="~{modules/footer}" />
     </div>
+
+    <script th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}" defer></script>
+    <script type="text/javascript" th:if="${not #strings.isEmpty(theme.config.custom.custom_js)}"
+        th:utext="${theme.config.custom.custom_js}"></script>
 </body>
 
 </html>

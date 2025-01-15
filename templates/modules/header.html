@@ -1,44 +1,55 @@
-<!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon" />
-    <title th:text="${#strings.defaultString(site.title, 'Halo')}"></title>
-</head>
-
 <body>
-
     <header id="header" class="clearfix">
         <div class="container-md">
             <div class="row">
                 <div class="site-name col-md-8 col-sm-12">
-                    <th:block th:if="${not #strings.isEmpty(site.logo)}">
+                    <!-- 判断logoUrl是否存在 -->
+                    <th:block th:if="${not #strings.isEmpty(theme.config.general.logoUrl)}">
                         <a id="logo" th:href="@{/}">
-                            <img th:src="${site.logo}" th:alt="${site.title}" />
+                            <!-- 使用配置中的logoUrl -->
+                            <img th:src="${theme.config.general.logoUrl}" th:alt="${theme.config.general.site_title}" />
                         </a>
                     </th:block>
-                    <th:block th:unless="${not #strings.isEmpty(site.logo)}">
-                        <a id="logo" th:href="@{/}" th:text="${site.title}"></a>
-                        <p class="description" th:text="${site.subtitle}"></p>
+                    <!-- 站点标题和描述 -->
+                    <div>
+                        <h1 id="site-title">
+                            <a th:href="@{/}"
+                                th:text="${#strings.isEmpty(theme.config.general.site_title) ? site.title : theme.config.general.site_title}"></a>
+                        </h1>
+                        <p class="description"
+                            th:text="${#strings.isEmpty(theme.config.general.site_description) ? site.subtitle : theme.config.general.site_description}">
+                        </p>
+                    </div>
+                </div>
+                <div class="site-search col-md-4 d-none d-md-block">
+                    <!-- 显示搜索框 -->
+                    <th:block th:if="${#lists.contains(theme.config.sidebar.sidebarBlock, 'ShowSearch')}">
+                        <section class="widget">
+                            <a href="javascript:SearchWidget.open()" title="搜索文章">
+                                <h3 class="widget-title">搜索文章</h3>
+                            </a>
+                        </section>
                     </th:block>
                 </div>
-                <!-- <div class="site-search col-md-4 d-none d-md-block">
-                <th:block th:if="${pluginFinder.available('PluginSearchWidget')}">
-                    <a href="javascript:SearchWidget.open()" title="搜索">
-                        搜索
-                    </a>
-                </th:block>
-            </div> -->
                 <div class="col-md-12">
                     <nav id="nav-menu" class="clearfix" role="navigation">
+                        <!-- 首页链接 -->
                         <a th:href="@{/}" th:classappend="${_templateId == 'index'} ? 'current' : ''">首页</a>
-                        <th:block th:each="menuItem : ${menuFinder.getPrimary().menuItems}">
-                            <a th:href="@{${menuItem.status.href}}"
-                                th:classappend="${menuItem.status.href == #httpServletRequest.requestURI} ? 'current' : ''"
-                                th:text="${menuItem.status.displayName}"></a>
+
+                        <!-- 从主题配置中获取菜单名称 -->
+                        <th:block th:with="menuName=${theme.config.general.menus}">
+                            <!-- <div th:text="'Menu Name: ' + ${menuName}"></div> 调试用 -->
+
+                            <!-- 根据菜单名称获取菜单数据 -->
+                            <th:block th:with="menu=${menuFinder.getByName(menuName)}">
+                                <!-- <div th:text="'menuItems Name: ' + ${menu}"></div> 调试用 -->
+                                <!-- 遍历菜单项并渲染 -->
+                                <th:block th:each="menuItem : ${menu.menuItems}">
+                                    <a th:href="@{${menuItem.status.href}}"
+                                        th:classappend="${menuItem.status.href == #httpServletRequest.requestURI} ? 'current' : ''"
+                                        th:text="${menuItem.status.displayName}"></a>
+                                </th:block>
+                            </th:block>
                         </th:block>
                     </nav>
                 </div>

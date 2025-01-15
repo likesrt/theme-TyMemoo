@@ -16,7 +16,7 @@ spec:
   configMapName: "theme-tymemoo-configMap"
   version: "1.0.0"
   requires: ">=2.0.0"
-    license:
+  license:
     - name: "MIT"
       url: "https://github.com/likesrt/theme-TyMemoo/blob/master/LICENSE"
   customTemplates:
