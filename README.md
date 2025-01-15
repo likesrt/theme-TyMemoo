@@ -1,9 +1,10 @@
 # TyMemoo  是一款运行在 Halo 上的 Typecho 默认主题
 
+## 和typecho 一样 这是一个毛胚房的主题
 
 ## 主题移植自 Typecho 主题 [memoo](https://github.com/wei-with-two-swords/memoo/)
 
- [演示站点](https://blog.likesrt.com/?preview-theme=theme-TyMemoo)
+##   [演示站点](https://blog.likesrt.com/?preview-theme=theme-TyMemoo)
 
 这是一个基于Typecho默认主题的微调版，保留了Typecho原汁原味的设计，同时有满足了当前大屏当道的现状。
 
