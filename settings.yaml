@@ -31,12 +31,18 @@ spec:
           name: excerpt_show
           label: 摘要显示
           help: 开启后首页将显示文章摘要
-        - $formkit: menuRadio
+        - $formkit: select
           name: menus
+          id: menus
+          key: menus
           label: 菜单
-          value: ""
-          help: 菜单设置
-
+          help: 首页菜单设置
+          action: "/api/v1alpha1/menus"
+          autoSelect: true
+          clearable: false
+          requestOption:
+            labelField: "spec.displayName"
+            valueField: "metadata.name"
 
     - group: page
       label: 页面设置

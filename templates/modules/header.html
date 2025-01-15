@@ -33,21 +33,18 @@
                 </div>
                 <div class="col-md-12">
                     <nav id="nav-menu" class="clearfix" role="navigation">
-                        <!-- 首页链接 -->
                         <a th:href="@{/}" th:classappend="${_templateId == 'index'} ? 'current' : ''">首页</a>
 
-                        <!-- 从主题配置中获取菜单名称 -->
+                        <!-- 从主题配置中获取菜单 -->
                         <th:block th:with="menuName=${theme.config.general.menus}">
-                            <!-- <div th:text="'Menu Name: ' + ${menuName}"></div> 调试用 -->
-
-                            <!-- 根据菜单名称获取菜单数据 -->
-                            <th:block th:with="menu=${menuFinder.getByName(menuName)}">
-                                <!-- <div th:text="'menuItems Name: ' + ${menu}"></div> 调试用 -->
-                                <!-- 遍历菜单项并渲染 -->
-                                <th:block th:each="menuItem : ${menu.menuItems}">
-                                    <a th:href="@{${menuItem.status.href}}"
-                                        th:classappend="${menuItem.status.href == #httpServletRequest.requestURI} ? 'current' : ''"
-                                        th:text="${menuItem.status.displayName}"></a>
+                            <th:block th:if="${menuName != null and menuName != ''}"
+                                th:with="menu=${menuFinder.getByName(menuName)}">
+                                <th:block th:if="${menu != null}">
+                                    <th:block th:each="menuItem : ${menu.menuItems}">
+                                        <a th:href="@{${menuItem.status.href}}"
+                                            th:classappend="${menuItem.status.href == #httpServletRequest.requestURI} ? 'current' : ''"
+                                            th:text="${menuItem.status.displayName}"></a>
+                                    </th:block>
                                 </th:block>
                             </th:block>
                         </th:block>
