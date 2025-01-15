@@ -6,37 +6,56 @@
  * @update  2013-10-28
  * --------------------------------- */
 
+ :root {
+  --primary-color: #3354AA;
+  --secondary-color: #444;
+  --background-color: #FFF;
+  --text-color: #333;
+  --border-color: #EEE;
+  --hover-color: #F6F6F6;
+  --code-background: #F3F3F3;
+  --code-color: #B94A48;
+  --blockquote-color: #666;
+  --table-border-color: #ddd;
+  --table-header-background: #f3f3f3;
+  --link-hover-color: #444;
+  --comment-background-odd: #F6F6F3;
+  --comment-background-even: #FFF;
+  --comment-background-author: #FFF9E8;
+  --footer-color: #999;
+}
+
 /* ------------------
  * Global style
  * --------------- */
 body {
-  background-color: #FFF;
-  color: #333;
+  background-color: var(--background-color);
+  color: var(--text-color);
   font-family: "Droid Serif", Georgia, "Times New Roman", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "WenQuanYi Micro Hei", "Microsoft Yahei", serif;
   font-size: 90%;
   letter-spacing: 1.5px;
 }
 
 a {
-  color: #3354AA;
+  color: var(--primary-color);
   text-decoration: none;
 }
 
 a:hover,
 a:active {
-  color: #444;
+  color: var(--link-hover-color);
 }
 
 pre,
 code {
-  background: #F3F3F3;
+  background: var(--code-background);
   font-family: Menlo, Monaco, Consolas, "Lucida Console", "Courier New", monospace;
   font-size: .92857em;
 }
 
 code {
   padding: 2px 4px;
-  color: #B94A48;
+  color: var(--code-color);
 }
 
 pre {
@@ -47,29 +66,29 @@ pre {
 
 pre code {
   padding: 3px;
-  color: #444;
+  color: var(--secondary-color);
 }
 
 blockquote {
   margin: 1em 0;
   padding-left: 1.5em;
-  border-left: 4px solid #eee;
-  color: #666;
+  border-left: 4px solid var(--border-color);
+  color: var(--blockquote-color);
 }
 
 table {
-  border: 1px solid #ddd;
+  border: 1px solid var(--table-border-color);
   width: 100%;
 }
 
 table th,
 table td {
   padding: 5px 10px;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
 }
 
 table th {
-  background: #f3f3f3;
+  background: var(--table-header-background);
 }
 
 h1,
@@ -87,11 +106,9 @@ input[type="url"],
 input[type="password"],
 textarea {
   padding: 5px;
-  border: 1px solid #E9E9E9;
+  border: 1px solid var(--border-color);
   width: 100%;
   border-radius: 2px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -104,7 +121,7 @@ textarea {
 .post-content a,
 .widget a,
 .comment-content a {
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .post-meta a:hover,
@@ -119,11 +136,11 @@ textarea {
  * --------------- */
 #header {
   padding-top: 35px;
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid var(--border-color);
 }
 
 #logo {
-  color: #333;
+  color: var(--text-color);
   font-size: 2.5em;
   margin-right: 15px;
   align-self: center;
@@ -139,7 +156,7 @@ textarea {
 
 .description {
   margin: .5em 0 0;
-  color: #999;
+  color: var(--footer-color);
   font-style: italic;
   font-size: 1.1em;
 }
@@ -179,17 +196,17 @@ textarea {
   display: block;
   margin-right: -1px;
   padding: 0 20px;
-  border: 1px solid #EEE;
+  border: 1px solid var(--border-color);
   border-bottom: none;
   height: 32px;
   line-height: 32px;
-  color: #444;
+  color: var(--secondary-color);
   float: left;
 }
 
 #nav-menu a:hover,
 #nav-menu .current {
-  background: #F6F6F6;
+  background: var(--hover-color);
 }
 
 /* Search */
@@ -219,9 +236,6 @@ textarea {
 (min-resolution: 192dpi) {
   #search button {
     background-image: url(img/icon-search@2x.png);
-    -webkit-background-size: 24px 24px;
-    -moz-background-size: 24px 24px;
-    -o-background-size: 24px 24px;
     background-size: 24px 24px;
   }
 }
@@ -231,7 +245,7 @@ textarea {
  * --------------- */
 .post {
   padding: 15px 0 20px;
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .post-title {
@@ -242,7 +256,7 @@ textarea {
 .post-meta {
   margin-top: -0.5em;
   padding: 0;
-  color: #999;
+  color: var(--footer-color);
   font-size: .92857em;
 }
 
@@ -250,7 +264,7 @@ textarea {
   display: inline-block;
   margin: 0 8px 0 0;
   padding-left: 12px;
-  border-left: 1px solid #EEE;
+  border-left: 1px solid var(--border-color);
 }
 
 .post-meta li:first-child {
@@ -264,7 +278,7 @@ textarea {
 }
 
 .post-near {
-  color: #999;
+  color: var(--footer-color);
 }
 
 .text-end {
@@ -274,7 +288,7 @@ textarea {
 .archive-title {
   margin: 1em 0 -1em;
   padding-top: 20px;
-  color: #999;
+  color: var(--footer-color);
   font-size: 1em;
 }
 
@@ -311,13 +325,13 @@ textarea {
 }
 
 .page-navigator a:hover {
-  background: #EEE;
+  background: var(--border-color);
   text-decoration: none;
 }
 
 .page-navigator .current a {
-  color: #444;
-  background: #EEE;
+  color: var(--secondary-color);
+  background: var(--border-color);
 }
 
 /* ------------------
@@ -333,19 +347,19 @@ textarea {
 .comment-list li {
   padding: 14px;
   margin-top: 10px;
-  border: 1px solid #EEE;
+  border: 1px solid var(--border-color);
 }
 
 .comment-list li.comment-level-odd {
-  background: #F6F6F3;
+  background: var(--comment-background-odd);
 }
 
 .comment-list li.comment-level-even {
-  background: #FFF;
+  background: var(--comment-background-even);
 }
 
 .comment-list li.comment-by-author {
-  background: #FFF9E8;
+  background: var(--comment-background-author);
 }
 
 .comment-list li .comment-reply {
@@ -354,14 +368,14 @@ textarea {
 }
 
 .comment-meta a {
-  color: #999;
+  color: var(--footer-color);
   font-size: .92857em;
 }
 
 .comment-author {
   display: block;
   margin-bottom: 3px;
-  color: #444;
+  color: var(--secondary-color);
 }
 
 .comment-author .avatar {
@@ -377,7 +391,7 @@ textarea {
 /* Comment reply */
 .comment-list .respond {
   margin-top: 15px;
-  border-top: 1px solid #EEE;
+  border-top: 1px solid var(--border-color);
 }
 
 .respond .cancel-comment-reply {
@@ -430,7 +444,7 @@ textarea {
   padding: 3em 0;
   line-height: 1.5;
   text-align: center;
-  color: #999;
+  color: var(--footer-color);
 }
 
 /* -----------------
@@ -464,7 +478,7 @@ textarea {
 
 .post-content a img,
 .comment-content a img {
-  background: #FFF;
+  background: var(--background-color);
   position: relative;
   bottom: -4px;
 }
@@ -473,7 +487,7 @@ textarea {
 .comment-content hr {
   margin: 2em auto;
   width: 100px;
-  border: 1px solid #E9E9E9;
+  border: 1px solid var(--border-color);
   border-width: 2px 0 0 0;
 }
 
@@ -651,17 +665,13 @@ img.alignright {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  /* 卡片之间的间距 */
   width: 100%;
-  /* 确保容器宽度占满父容器 */
 }
 
 .card {
   width: 250px;
-  /* 卡片宽度 */
   height: 70px;
-  /* 卡片高度 */
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
   display: flex;
@@ -678,15 +688,10 @@ img.alignright {
 
 .card img {
   width: 50px;
-  /* 图片宽度 */
   height: 50px;
-  /* 图片高度 */
   object-fit: contain;
-  /* 保持图片比例 */
   margin-right: 10px;
-  /* 图片和文字之间的间距 */
   border-radius: 80%;
-  /* 圆形图片 */
 }
 
 .card-content {
@@ -699,7 +704,7 @@ img.alignright {
 .card-content p {
   margin: 0;
   font-size: 12px;
-  color: #333;
+  color: var(--text-color);
   line-height: 1.2;
 }
 
@@ -709,7 +714,6 @@ img.alignright {
 }
 
 .group-title {
-  /* 上边距 */
   margin-top: 20px !important;
 }
 
@@ -717,13 +721,10 @@ img.alignright {
   .card {
     width: 80%;
     height: auto;
-    /* 左右居中 */
     margin: 0 auto;
-
     margin-bottom: 15px;
   }
 }
-
 
 /* 标签云 */
 .tag-wall {
@@ -737,7 +738,7 @@ img.alignright {
   display: inline-block;
   margin-right: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   padding: 10px;
   border-radius: 5px;
   text-decoration: none;
@@ -748,10 +749,7 @@ img.alignright {
 
 .tag-button:hover {
   transform: translateY(-2px);
-  /* 悬停时稍微上移 */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  /* 悬停时阴影加深 */
-  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .tag-count {
@@ -764,28 +762,22 @@ img.alignright {
 @media (max-width: 767.98px) {
   .tag-button {
     font-size: 12px;
-    /* 小屏幕字体稍小 */
     padding: 6px 12px;
-    /* 小屏幕内边距稍小 */
   }
 }
 
 .tag-page-title {
-  /* 上边距 */
   margin-top: 25px;
   font-weight: bold;
 }
 
-
 /* 瞬间样式 */
-/* 文章标题 */
 .article-title {
   font-size: 2rem;
   margin-bottom: 20px;
-  color: #333;
+  color: var(--text-color);
 }
 
-/* 标签列表 */
 .moment-tags .filter-list {
   list-style: none;
   padding: 0;
@@ -809,11 +801,10 @@ img.alignright {
 
 .moment-tags .filter-item a.active,
 .moment-tags .filter-item a:hover {
-  background-color: #007bff;
+  background-color: var(--primary-color);
   color: #fff;
 }
 
-/* 瞬间列表 */
 .moments-list .moments-posts-list {
   list-style: none;
   padding: 0;
@@ -822,12 +813,11 @@ img.alignright {
 .moments-list .blog-post-item {
   margin-bottom: 30px;
   padding: 20px;
-  background-color: #fff;
+  background-color: var(--background-color);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* 作者信息 */
 .moment-author {
   display: flex;
   align-items: center;
@@ -836,48 +826,40 @@ img.alignright {
 
 .moment-author .author-avatar {
   width: 50px;
-  /* 头像尺寸统一为 50x50 */
   height: 50px;
   border-radius: 10%;
   margin-right: 10px;
   object-fit: cover;
-  /* 确保图片比例不变 */
 }
 
 .moment-author .author-name {
   font-weight: bold;
-  color: #333;
+  color: var(--text-color);
 }
 
-/* 瞬间内容 */
 .blog-content .moment-text {
   margin-bottom: 15px;
   font-size: 1rem;
   color: #555;
 }
 
-/* 媒体内容 */
 .moment-media {
   margin-bottom: 15px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  /* 图片之间的间距 */
 }
 
 .moment-media .moment-img img {
   width: 140px;
-  /* 图片尺寸统一为 140x140 */
   height: 140px;
   border-radius: 8px;
   object-fit: cover;
-  /* 确保图片比例不变 */
 }
 
 .moment-media .moment-video .video-wrapper {
   position: relative;
   width: 140px;
-  /* 视频尺寸统一为 140x140 */
   height: 140px;
 }
 
@@ -886,7 +868,6 @@ img.alignright {
   height: 100%;
   border-radius: 8px;
   object-fit: cover;
-  /* 确保视频比例不变 */
 }
 
 .moment-media .moment-video .video-play-btn {
@@ -904,7 +885,6 @@ img.alignright {
   margin-top: 10px;
 }
 
-/* 瞬间元信息 */
 .moment-meta {
   display: flex;
   align-items: center;
@@ -921,30 +901,24 @@ button.meta-item {
   display: flex;
   align-items: center;
   gap: 4px;
-  /* 调整文字和数字之间的间距 */
   font-size: 14px;
-  /* 调整字体大小 */
-  color: #333;
-  /* 调整文字颜色 */
+  color: var(--text-color);
 }
 
 button.meta-item:hover {
-  color: #007bff;
-  /* 鼠标悬停时的文字颜色 */
+  color: var(--primary-color);
 }
 
-/* 评论区 */
 .moment-comments {
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--border-color);
 }
 
 .moment-comments .separator {
   margin-bottom: 20px;
 }
 
-/* 分页样式 */
 .pagination {
   display: flex;
   justify-content: center;
@@ -960,19 +934,17 @@ button.meta-item:hover {
   padding: 5px 10px;
   border-radius: 5px;
   background-color: #e0e0e0;
-  color: #333;
+  color: var(--text-color);
   transition: background-color 0.3s ease;
 }
 
 .pagination .page-item a.active,
 .pagination .page-item a:hover {
-  background-color: #007bff;
+  background-color: var(--primary-color);
   color: #fff;
 }
-
 
 /* 图库样式 */
 /*-----------------------------------*\
   #PHOTOS STYLES
 \*-----------------------------------*/
-
