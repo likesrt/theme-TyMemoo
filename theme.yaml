@@ -8,10 +8,10 @@ spec:
     name: yuyan
     website: "https://github.com/likesrt"
   description: "在halo上的typecho"
-  logo: "https://www.halo.run/logo"
+  logo: "https://file.likesrt.com/uploads/2025/01/15/TyMemoo.png"
   homepage: "https://github.com/likesrt/theme-TyMemoo"
-  repo: "https://github.com/halo-dev/theme-TyMemoo"
-  issues: "https://github.com/halo-dev/theme-TyMemoo/issues"
+  repo: "https://github.com/likesrt/theme-TyMemoo"
+  issues: "https://github.com/likesrt/theme-TyMemoo/issues"
   settingName: "theme-tymemoo-setting"
   configMapName: "theme-tymemoo-configMap"
   version: "1.0.0"
