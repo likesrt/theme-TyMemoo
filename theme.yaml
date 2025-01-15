@@ -18,7 +18,7 @@ spec:
   requires: ">=2.0.0"
   license:
     - name: "MIT"
-      url: "https://github.com/likesrt/theme-TyMemoo/blob/master/LICENSE"
+      url: "https://github.com/likesrt/theme-TyMemoo/blob/main/LICENSE"
   customTemplates:
     page:
       - name: 友链
