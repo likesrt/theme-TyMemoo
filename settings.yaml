@@ -10,21 +10,23 @@ spec:
         - $formkit: text
           name: site_title
           label: 站点名称
+          value: "TyMemoo"
           help: 站点名称 不填将使用全局设置中的站点名称
         - $formkit: attachment
           name: logoUrl
           label: 站点 LOGO
           help: 在这里填入一个图片 URL 地址, 以在网站标题前加上一个 LOGO 不填则不显示
-          value: "https://file.likesrt.com/uploads/2024/12/23/%E5%9C%86%E8%A7%92-avatar.png!wp5"
+          value: ""
         - $formkit: attachment
           name: icoPath
           label: 站点favicon.ico图标 不填将使用全局设置中的图标
           help: 请输入favicon.ico图标文件位置，这将让图标展示在浏览器页签上，示例（默认值）：/usr/themes/memoo/favicon.ico
-          value: "https://file.likesrt.com/uploads/2024/12/23/%E5%9C%86%E8%A7%92-avatar.png!wp5"
+          value: ""
         - $formkit: text
           name: site_description
           label: 站点描述
           help: 首页描述文字 不填将使用全局设置中的描述
+          value: "Haolo上的Typecho"
         - $formkit: checkbox
           name: excerpt_show
           label: 摘要显示
@@ -90,7 +92,7 @@ spec:
           label: 社交媒体
           value:
             - title: "GitHub"
-              url: https://github.com/chengzhongxue
+              url: https://github.com/likesrt
           children:
             - $formkit: text
               name: title
@@ -108,18 +110,22 @@ spec:
           name: comments_page
           label: 页面评论区
           help: 开启后页面可使用评论功能
+          value: true
         - $formkit: checkbox
           name: comments_post
           label: 文章评论区
           help: 开启后文章详情页可使用评论功能
+          value: true
         - $formkit: checkbox
           name: comments_links
           label: 友链评论区
           help: 开启后友链页面可使用评论功能
+          value: true
         - $formkit: checkbox
           name: comments_moment
           label: 瞬间评论区
           help: 开启后瞬间页面可使用评论功能
+          value: true
     - group: footer
       label: 页脚设置
       formSchema:
