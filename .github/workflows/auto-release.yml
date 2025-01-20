@@ -3,11 +3,13 @@ name: Auto Release on Tag
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*' 
 
 jobs:
   create-release:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04  
+    permissions:
+      contents: write 
 
     steps:
       - name: Checkout code
@@ -16,10 +18,10 @@ jobs:
       - name: Compress files
         run: |
           mkdir -p dist
-          zip -r dist/TyMemoo.zip .
+          zip -r dist/TyMemoo.zip .  # 压缩当前目录下的所有文件到 dist/TyMemoo.zip
 
       - name: Create Release and Upload Assets
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v1 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
