@@ -3,11 +3,10 @@ name: Auto Release on Tag
 on:
   push:
     tags:
-      - 'v*' 
-
+      - 'v*'
 jobs:
   create-release:
-    runs-on: ubuntu-22.04  
+    runs-on: ubuntu-22.04
     permissions:
       contents: write 
 
@@ -25,7 +24,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          name: Release ${{ github.ref }}
+          tag_name: ${{ github.ref_name }}  
+          name: Release ${{ github.ref_name }}
           files: |
             dist/TyMemoo.zip
