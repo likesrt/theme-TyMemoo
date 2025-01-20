@@ -17,7 +17,7 @@ jobs:
       - name: Compress files
         run: |
           mkdir -p dist
-          zip -r dist/TyMemoo.zip .  # 压缩当前目录下的所有文件到 dist/TyMemoo.zip
+          zip -r dist/TyMemoo.zip . -x "dist/*" ".github/*" ".git/*" 
 
       - name: Create Release and Upload Assets
         uses: softprops/action-gh-release@v1 
